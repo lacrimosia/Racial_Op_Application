@@ -1,0 +1,23 @@
+{
+	"title": "Racial Classification",
+	"scenarios":[
+		{
+			"title": "scenario 1",
+			"picture": "pic0.jpg",
+			"text": "Information about the picture",
+			"active": false
+		},
+		{
+			"title": "scenario 2",
+			"picture": "pic1.jpg",
+			"text": "Information about the picture2",
+			"active": false
+		},
+		{
+			"title": "scenario 3",
+			"picture": "pic2.jpg",
+			"text": "Information about the picture3",
+			"active": false
+		}
+	]
+}
