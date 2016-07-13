@@ -62,15 +62,15 @@
 
 	var _reactDom = __webpack_require__(38);
 
-	var _Reflection = __webpack_require__(181);
+	var _Reflection = __webpack_require__(168);
 
 	var _Reflection2 = _interopRequireDefault(_Reflection);
 
-	var _Menu = __webpack_require__(182);
+	var _Menu = __webpack_require__(170);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Bottom = __webpack_require__(183);
+	var _Bottom = __webpack_require__(171);
 
 	var _Bottom2 = _interopRequireDefault(_Bottom);
 
@@ -20404,20 +20404,7 @@
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20440,22 +20427,53 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var data = __webpack_require__(169);
+
 	var Reflection = function (_React$Component) {
 	    _inherits(Reflection, _React$Component);
 
 	    function Reflection(props) {
 	        _classCallCheck(this, Reflection);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Reflection).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Reflection).call(this, props));
+
+	        _this.title = data.title;
+	        _this.scenario = data.scenarios;
+	        _this.pictures = _this.scenario.map(function (s) {
+	            return s.picture;
+	        });
+	        console.log(_this.pictures);
+	        return _this;
 	    }
 
 	    _createClass(Reflection, [{
+	        key: 'checkName',
+	        value: function checkName() {
+	            if (this.pictures.length > 1) {
+	                console.log("hello");
+	            }
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h1',
+	                'div',
 	                null,
-	                'Changing Photo'
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Changing Photo'
+	                ),
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    this.pictures
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    this.checkName()
+	                )
 	            );
 	        }
 	    }]);
@@ -20466,7 +20484,35 @@
 	exports.default = Reflection;
 
 /***/ },
-/* 182 */
+/* 169 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"title": "Racial Classification",
+		"scenarios": [
+			{
+				"title": "scenario 1",
+				"picture": "pic0.jpg",
+				"text": "Information about the picture",
+				"active": false
+			},
+			{
+				"title": "scenario 2",
+				"picture": "pic1.jpg",
+				"text": "Information about the picture2",
+				"active": false
+			},
+			{
+				"title": "scenario 3",
+				"picture": "pic2.jpg",
+				"text": "Information about the picture3",
+				"active": false
+			}
+		]
+	};
+
+/***/ },
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20523,7 +20569,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 183 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
