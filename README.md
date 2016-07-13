@@ -1,1 +1,1 @@
-Webpack Test repo setup with React
+Webpack Test repo setup with ReactRacial Oppression interactive for WMST 113 using React
