@@ -18,10 +18,10 @@ class App extends React.Component {
         super(props);
         this.list = data.scenarios;
     }
+
     render() {
         return <div>
                 <Menu />
-                <Reflection />
                  <Bottom list={this.list} />
         	   </div>
     }

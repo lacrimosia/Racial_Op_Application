@@ -1,5 +1,6 @@
 import React from 'react';
 import data from '../data/data.json';
+import Reflection from './Reflection';
 
 class Bottom extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Bottom extends React.Component {
 
     getInfo(index){
     	console.log(index);
+
     	return index;
     }
 
@@ -16,14 +18,20 @@ class Bottom extends React.Component {
         return (<div>
 
        {
-        this.props.list.map(function (note) {
+        this.props.list.map(function (b) {
+        
          return (
-            <button key={note.id} id={note.id} className="test" onClick={this.getInfo.bind(this, note.id)}>
-              {note.id}
+         	<div>
+         	<Reflection id={b.picture}  key={b-50}/>
+           <button key={b.id} id={b.id} className="test" onClick={this.getInfo.bind(this, b.id)}>
+              {b.id}
             </button>
+            </div>
           );
         }.bind(this))
       }
+
+
         	</div>
     );
    }

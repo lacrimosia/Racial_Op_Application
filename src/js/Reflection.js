@@ -11,14 +11,9 @@ class Reflection extends React.Component {
        // this.pictures = this.scenario.map(s => s.picture);
     }
 
-    checkName(){
-        if(this.pictures.length > 1){
-            console.log("hello");
-        }
-    }
-   
     render() {
         return (<div> 
+            <img src={'images/'+this.props.id} /> {this.props.id}
         </div>
             );
     }

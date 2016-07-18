@@ -109,7 +109,6 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(_Menu2.default, null),
-	                _react2.default.createElement(_Reflection2.default, null),
 	                _react2.default.createElement(_Bottom2.default, { list: this.list })
 	            );
 	        }
@@ -20451,16 +20450,15 @@
 	    }
 
 	    _createClass(Reflection, [{
-	        key: 'checkName',
-	        value: function checkName() {
-	            if (this.pictures.length > 1) {
-	                console.log("hello");
-	            }
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement('div', null);
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement('img', { src: 'images/' + this.props.id }),
+	                ' ',
+	                this.props.id
+	            );
 	        }
 	    }]);
 
@@ -20616,14 +20614,14 @@
 		"scenarios": [
 			{
 				"title": "scenario 1",
-				"picture": "pic0.jpg",
+				"picture": "pic1.jpg",
 				"text": "Information about the picture",
 				"active": false,
 				"id": 1
 			},
 			{
 				"title": "scenario 2",
-				"picture": "pic1.jpg",
+				"picture": "pic2.jpg",
 				"text": "Information about the picture2",
 				"active": false,
 				"id": 2
@@ -30715,6 +30713,10 @@
 
 	var _data2 = _interopRequireDefault(_data);
 
+	var _Reflection = __webpack_require__(168);
+
+	var _Reflection2 = _interopRequireDefault(_Reflection);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30739,6 +30741,7 @@
 	        key: 'getInfo',
 	        value: function getInfo(index) {
 	            console.log(index);
+
 	            return index;
 	        }
 	    }, {
@@ -30747,11 +30750,17 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                this.props.list.map(function (note) {
+	                this.props.list.map(function (b) {
+
 	                    return _react2.default.createElement(
-	                        'button',
-	                        { key: note.id, id: note.id, className: 'test', onClick: this.getInfo.bind(this, note.id) },
-	                        note.id
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(_Reflection2.default, { id: b.picture, key: b - 50 }),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { key: b.id, id: b.id, className: 'test', onClick: this.getInfo.bind(this, b.id) },
+	                            b.id
+	                        )
 	                    );
 	                }.bind(this))
 	            );

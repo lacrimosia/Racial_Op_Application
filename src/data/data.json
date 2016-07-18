@@ -4,14 +4,14 @@
 	"scenarios":[
 		{
 			"title": "scenario 1",
-			"picture": "pic0.jpg",
+			"picture": "pic1.jpg",
 			"text": "Information about the picture",
 			"active": false,
 			"id": 1
 		},
 		{
 			"title": "scenario 2",
-			"picture": "pic1.jpg",
+			"picture": "pic2.jpg",
 			"text": "Information about the picture2",
 			"active": false,
 			"id": 2

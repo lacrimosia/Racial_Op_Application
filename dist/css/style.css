@@ -163,6 +163,10 @@ body {
   float: left;
   margin-right: 10px; }
 
+img {
+  width: 30%;
+  height: auto; }
+
 /* header bar */
 .header {
   /* background: #222222;*/
