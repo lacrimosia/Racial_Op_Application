@@ -1,15 +1,14 @@
 'use strict';
 
 import React from 'react';
-const data = require('../data/data.json');
+
 
 class Reflection extends React.Component {
     constructor(props) {
         super(props);
-        this.title = data.title;
-        this.scenario = data.scenarios;
-        this.pictures = this.scenario.map(s => s.picture);
-        console.log(this.pictures);
+      //  this.title = data.title;
+       // this.scenario = data.scenarios;
+       // this.pictures = this.scenario.map(s => s.picture);
     }
 
     checkName(){
@@ -19,11 +18,8 @@ class Reflection extends React.Component {
     }
    
     render() {
-        return (<div>
-               <h1>Changing Photo</h1>
-                <p>{this.pictures}</p>
-                <h3>{this.checkName()}</h3>
-                </div>
+        return (<div> 
+        </div>
             );
     }
 }

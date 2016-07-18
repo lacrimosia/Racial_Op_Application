@@ -2,6 +2,7 @@ var webpack = require('webpack'),
     path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     debug: true,
@@ -30,18 +31,29 @@ module.exports = {
             }
         }, {
             test: /\.(png|jpg|gif)$/,
-            loader: 'url-loader?limit=200000'
+            loader: 'url-loader'
         }],
         sassLoader: {
             includePaths: [path.resolve(__dirname, "./dist/css/")]
         },
     },
     plugins: [
-        new ExtractTextPlugin("../css/style.css"), 
-        new HtmlWebpackPlugin({
-            hash: true,
-            title: "Racial Classification Interactive",
-            filename: "../index.html"
-        })
+        new ExtractTextPlugin("../css/style.css"),
+        /*  new HtmlWebpackPlugin({
+              hash: true,
+              title: "Racial Classification Interactive",
+              filename: "../index.html"
+          }),*/
+        new CopyWebpackPlugin([{
+            from: './src/data/data.json',
+            to: '../data/data.json'
+        }, {
+            from: './index.html',
+            to: '../index.html'
+        },
+        {
+            from: './src/images',
+            to: '../images'
+        }])
     ]
 };

@@ -10,17 +10,19 @@ import Reflection from './Reflection';
 import Menu from './Menu';
 import Bottom from './Bottom';
 import '../scss/app.scss';
-
+import Help from './Help';
+const data = require('../data/data.json');
 
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.list = data.scenarios;
     }
     render() {
         return <div>
                 <Menu />
-                 <Reflection />
-                 <Bottom />
+                <Reflection />
+                 <Bottom list={this.list} />
         	   </div>
     }
 }
