@@ -9,6 +9,7 @@ import {render} from 'react-dom';
 import Reflection from './Reflection';
 import Menu from './Menu';
 import Bottom from './Bottom';
+import '../scss/app.scss';
 
 
 class App extends React.Component {

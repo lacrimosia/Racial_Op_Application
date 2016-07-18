@@ -1,11 +1,13 @@
 var webpack = require('webpack'),
     path = require('path');
-
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     debug: true,
     entry: {
         main: './src/js/main.js'
+
     },
     output: {
         path: path.join(__dirname, './dist/js'),
@@ -14,7 +16,8 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.scss$/,
-            loaders: ["style", "css", "sass"]
+            // loaders: ["style", "css", "sass"]
+            loader: ExtractTextPlugin.extract("css!sass")
         }, {
             test: /\.json/,
             loader: "json-loader"
@@ -25,13 +28,20 @@ module.exports = {
             query: {
                 presets: ['es2015', 'react']
             }
-        },
-        {
+        }, {
             test: /\.(png|jpg|gif)$/,
             loader: 'url-loader?limit=200000'
         }],
         sassLoader: {
             includePaths: [path.resolve(__dirname, "./dist/css/")]
-        }
-    }
+        },
+    },
+    plugins: [
+        new ExtractTextPlugin("../css/style.css"), 
+        new HtmlWebpackPlugin({
+            hash: true,
+            title: "Racial Classification Interactive",
+            filename: "../index.html"
+        })
+    ]
 };
