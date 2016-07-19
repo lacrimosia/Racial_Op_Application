@@ -14,13 +14,14 @@ class Bottom extends React.Component {
     getInfo(index){
     	console.log(index);
     	$('.pictures').html("<img class='animated fadeIn' src='images/"+this.list[index-1].picture+"'/>");
+    	$('.textPortion').text(this.list[index-1].text);
     	return index;
     }
 
     render() {
         return (<div>
         	<div className="placeArea"><div className="pictures"></div></div>
-        	<div className="textArea"><div className="textPortion"></div></div>
+        	<div className="textArea"><div className="textPortion animated fadeIn"></div></div>
        {
         this.props.list.map(function (b) {
         

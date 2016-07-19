@@ -45,7 +45,11 @@ body {
   left: 464px;
   z-index: 0;
   overflow: hidden;
-  background: blue; }
+  background: none; }
+  .textArea .textPortion {
+    padding: 15px;
+    overflow: hidden;
+    color: #1B1F4E; }
 
 .intro,
 .help_Menu {

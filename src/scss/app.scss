@@ -2,6 +2,7 @@
 $backgroundColor: #ffffff;
 $appImage: url('../images/back.jpg') no-repeat;
 $color: #ffffff;
+$textColor: #1B1F4E;
 $fonts: sans-serif, verdana !important;
 $margin : 0px;
 
@@ -58,7 +59,13 @@ body{
     @include wh(508px, 181px);
     @include Pos(relative, -188px, 464px, 0); 
     overflow: hidden;
-    background: blue;
+    background: none;
+
+    .textPortion{
+        padding: 15px;
+        overflow: hidden;
+        color: $textColor;
+    }
 }
 
 .intro,
