@@ -4,6 +4,8 @@ import React from 'react';
 const $ = require('jquery');
 // const _ = require('lodash');
 
+// Bottom Navigation Component for changing the picture & text
+
 class Bottom extends React.Component {
     constructor(props) {
         super(props);
@@ -17,7 +19,7 @@ class Bottom extends React.Component {
         		if(i === index){
         			this.list[index].active = true;
         			$('#'+(index+1)).attr('src', "images/"+(index+1)+"-h.png");
-        			console.log('this is i', i+1);
+        			// console.log('this is i', i+1);
         		}else{
         			this.list[i].active = false;
         			$('#'+(i+1)).attr('src', "images/"+(i+1)+".png");
