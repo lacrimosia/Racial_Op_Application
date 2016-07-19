@@ -43,14 +43,6 @@ class Menu extends React.Component {
         		<button className="help btn" title="Help Menu" onClick={()=>this.openBox(this.reflect)}><i className="fa fa-question-circle"></i> Help</button>
         	</div>
         </div>
-        // instructions
-        <div className="instructions">
-        	 <div className="text">
-        	 	<p><b>Instructions:</b>
-        	 		{this.instructions}
-        	 	</p>
-        	 </div>
-        </div>
         	</div>// end div
         		
         	);

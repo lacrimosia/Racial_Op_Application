@@ -1,5 +1,6 @@
 // $backgroundColor: url('../images/back.jpg') no-repeat;
 $backgroundColor: #ffffff;
+$appImage: url('../images/back.jpg') no-repeat;
 $color: #ffffff;
 $fonts: sans-serif, verdana !important;
 $margin : 0px;
@@ -28,8 +29,16 @@ body{
 
 #App{
     @include Pos(relative, 0px, 0px, 0); 
-    @include wh(800px, 600px); 
+    @include wh(1024px, 576px); 
     border: 1px solid #000000;
+    background: $appImage;
+    background-size: 100%;
+}
+
+.buttons{
+    width: 6%;
+    height: 100%;
+    @include Pos(relative, 320px, 249px, 0); 
 }
 
 .intro,
@@ -179,30 +188,14 @@ body{
     margin-right: 10px;
 }
 
-img{
-    width: 30%;
-    height: auto;
-}
-
 /* header bar */
 
 .header {
-    /* background: #222222;*/
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#383838+0,111111+100 */
-    background: rgb(56, 56, 56);
-    /* Old browsers */
-    background: -moz-linear-gradient(45deg, rgba(56, 56, 56, 1) 0%, rgba(17, 17, 17, 1) 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(45deg, rgba(56, 56, 56, 1) 0%, rgba(17, 17, 17, 1) 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(45deg, rgba(56, 56, 56, 1) 0%, rgba(17, 17, 17, 1) 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#383838', endColorstr='#111111', GradientType=1);
-    /* IE6-9 fallback on horizontal gradient */
+   background: rgb(34, 38, 65);
     font-family: $fonts;
     color: #f1f1f1;
     @include Pos(relative, -20px, 0px, 60);
-    @include wh(800px, 31px);
+    @include wh(100%, 31px);
 }
 
 .titles {

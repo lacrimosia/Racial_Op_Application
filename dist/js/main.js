@@ -20573,25 +20573,6 @@
 	                            ' Help'
 	                        )
 	                    )
-	                ),
-	                '// instructions',
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'instructions' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'text' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            _react2.default.createElement(
-	                                'b',
-	                                null,
-	                                'Instructions:'
-	                            ),
-	                            this.instructions
-	                        )
-	                    )
 	                )
 	            ) // end div
 
@@ -30725,6 +30706,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var $ = __webpack_require__(171);
+
 	var Bottom = function (_React$Component) {
 	    _inherits(Bottom, _React$Component);
 
@@ -30741,7 +30724,6 @@
 	        key: 'getInfo',
 	        value: function getInfo(index) {
 	            console.log(index);
-
 	            return index;
 	        }
 	    }, {
@@ -30752,16 +30734,7 @@
 	                null,
 	                this.props.list.map(function (b) {
 
-	                    return _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(_Reflection2.default, { id: b.picture, key: b - 50 }),
-	                        _react2.default.createElement(
-	                            'button',
-	                            { key: b.id, id: b.id, className: 'test', onClick: this.getInfo.bind(this, b.id) },
-	                            b.id
-	                        )
-	                    );
+	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '.png', className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
 	                }.bind(this))
 	            );
 	        }
