@@ -1,9 +1,5 @@
 'use strict';
 
-/*const $ = require('jquery');
-let t = 50;
-$('.box').text(t); */
-
 import React from 'react';
 import {render} from 'react-dom';
 import Reflection from './Reflection';

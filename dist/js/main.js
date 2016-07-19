@@ -46,10 +46,6 @@
 
 	'use strict';
 
-	/*const $ = require('jquery');
-	let t = 50;
-	$('.box').text(t); */
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -30738,6 +30734,7 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Bottom).call(this, props));
 
 	        _this.list = _data2.default.scenarios;
+	        _this.init();
 	        return _this;
 	    }
 
@@ -30745,9 +30742,22 @@
 	        key: 'getInfo',
 	        value: function getInfo(index) {
 	            console.log(index);
-	            $('.pictures').html("<img class='animated fadeIn' src='images/" + this.list[index - 1].picture + "'/>");
-	            $('.textPortion').text(this.list[index - 1].text);
+	            var Index = index - 1;
+	            var newSrc = "images/" + index + "-h.png";
+	            var oldSrc = "images/" + index + ".png";
+	            this.list[Index].active = !this.list[Index].active;
+	            console.log('active', this.list[Index].active);
+	            this.list[Index].active ? $('#' + index).attr('src', newSrc) : $('#' + index).attr('src', oldSrc);
+
+	            $('.pictures').html("<img class='animated fadeIn' src='images/" + this.list[Index].picture + "'/>");
+	            $('.textPortion').text(this.list[Index].text);
+
 	            return index;
+	        }
+	    }, {
+	        key: 'init',
+	        value: function init() {
+	            this.list[0].active = true;
 	        }
 	    }, {
 	        key: 'render',
@@ -30758,16 +30768,27 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'placeArea' },
-	                    _react2.default.createElement('div', { className: 'pictures' })
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'pictures' },
+	                        _react2.default.createElement('img', { className: 'animated fadeIn', src: 'images/' + this.list[0].picture })
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'textArea' },
-	                    _react2.default.createElement('div', { className: 'textPortion animated fadeIn' })
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'textPortion animated fadeIn' },
+	                        this.list[0].text
+	                    )
 	                ),
 	                this.props.list.map(function (b) {
-
-	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '.png', tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    if (b.id > 1) {
+	                        return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '.png', id: b.id, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    } else {
+	                        return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '-h.png', id: b.id, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    }
 	                }.bind(this))
 	            );
 	        }
