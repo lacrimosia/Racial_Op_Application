@@ -1,16 +1,19 @@
 'use strict'
 
 import React from 'react';
+import keydown, { Keys } from 'react-keydown';
 const $ = require('jquery');
-// const _ = require('lodash');
+
 
 // Bottom Navigation Component for changing the picture & text
-
 class Bottom extends React.Component {
     constructor(props) {
         super(props);
         this.list = this.props.list;  // content list from main.js
+    }
 
+    componentDidMount() {
+          //  $(document.body).on('keydown', this.getInfo);
     }
 
     getInfo(index){
@@ -25,8 +28,11 @@ class Bottom extends React.Component {
         			$('#'+(i+1)).attr('src', "images/"+(i+1)+".png");
         		}    		     	
         }
+
     	$('.pictures').html("<img class='animated fadeIn' src='images/"+this.list[index].picture+"'/>");
     	$('.textPortion').text(this.list[index].text); 
+
+
     	return index;
     }
 
