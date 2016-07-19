@@ -58,10 +58,6 @@
 
 	var _reactDom = __webpack_require__(38);
 
-	var _Reflection = __webpack_require__(168);
-
-	var _Reflection2 = _interopRequireDefault(_Reflection);
-
 	var _Menu = __webpack_require__(169);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
@@ -20410,60 +20406,7 @@
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Reflection = function (_React$Component) {
-	    _inherits(Reflection, _React$Component);
-
-	    function Reflection(props) {
-	        _classCallCheck(this, Reflection);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Reflection).call(this, props));
-	        //  this.title = data.title;
-	        // this.scenario = data.scenarios;
-	        // this.pictures = this.scenario.map(s => s.picture);
-	    }
-
-	    _createClass(Reflection, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement('img', { src: 'images/' + this.props.id }),
-	                ' ',
-	                this.props.id
-	            );
-	        }
-	    }]);
-
-	    return Reflection;
-	}(_react2.default.Component);
-
-	exports.default = Reflection;
-
-/***/ },
+/* 168 */,
 /* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20594,56 +20537,56 @@
 				"picture": "Niger_Woman.png",
 				"text": "A black woman in Nigeria bleaching her skin.",
 				"active": false,
-				"id": 1
+				"id": 0
 			},
 			{
 				"title": "Gay Man",
 				"picture": "Gay_Man.png",
 				"text": "A gay man in the United States going through reparative or conversion therapy to cure himself of homosexuality.",
 				"active": false,
-				"id": 2
+				"id": 1
 			},
 			{
 				"title": "Korean Woman",
 				"picture": "Korean_Eyes.png",
 				"text": "A Korean woman getting surgery so that she can have a \"fold\" on her eyelids and be more attractive.",
 				"active": false,
-				"id": 3
+				"id": 2
 			},
 			{
 				"title": "Special needs",
 				"picture": "Autistic_Boy.png",
 				"text": "A young man with autism who refuses to be friends with other people with special needs, because he thinks this idea is \"retarded.\"",
 				"active": false,
-				"id": 4
+				"id": 3
 			},
 			{
 				"title": "Alaska Native",
 				"picture": "Alaskan_Native.png",
 				"text": "An Alaska Native woman who looks down on other Native people from the \"village\" and teases them for their \"village accent.\"",
 				"active": false,
-				"id": 5
+				"id": 4
 			},
 			{
 				"title": "Fillipino Man",
 				"picture": "Filipino_Guy.png",
 				"text": "A man in the Philippines spending his hard-earned money to pay for treatments in a local skin-whitening clinic.",
 				"active": false,
-				"id": 6
+				"id": 5
 			},
 			{
 				"title": "UK mother",
 				"picture": "Playing_Catch.png",
 				"text": "A mother in the United Kingdom who, while playing catch with her daughter, coaches her to \"don't throw like a girl.\"",
 				"active": false,
-				"id": 7
+				"id": 6
 			},
 			{
 				"title": "Mexican adolescent",
 				"picture": "Mexican_Family.png",
 				"text": "A Mexican American adolescent who is embarrassed of his parents as they struggled to talk with his teacher in their limited, broken, and accented English.",
 				"active": false,
-				"id": 8
+				"id": 7
 			}
 		]
 	};
@@ -30707,14 +30650,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _data = __webpack_require__(170);
-
-	var _data2 = _interopRequireDefault(_data);
-
-	var _Reflection = __webpack_require__(168);
-
-	var _Reflection2 = _interopRequireDefault(_Reflection);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30724,6 +30659,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var $ = __webpack_require__(171);
+	// const _ = require('lodash');
 
 	var Bottom = function (_React$Component) {
 	    _inherits(Bottom, _React$Component);
@@ -30733,31 +30669,28 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Bottom).call(this, props));
 
-	        _this.list = _data2.default.scenarios;
-	        _this.init();
+	        _this.list = _this.props.list; // content list from main.js
+
 	        return _this;
 	    }
 
 	    _createClass(Bottom, [{
 	        key: 'getInfo',
 	        value: function getInfo(index) {
-	            console.log(index);
-	            var Index = index - 1;
-	            var newSrc = "images/" + index + "-h.png";
-	            var oldSrc = "images/" + index + ".png";
-	            this.list[Index].active = !this.list[Index].active;
-	            console.log('active', this.list[Index].active);
-	            this.list[Index].active ? $('#' + index).attr('src', newSrc) : $('#' + index).attr('src', oldSrc);
-
-	            $('.pictures').html("<img class='animated fadeIn' src='images/" + this.list[Index].picture + "'/>");
-	            $('.textPortion').text(this.list[Index].text);
-
+	            // loop through all elements and change the current to true and unselected to false
+	            for (var i = 0; i < this.list.length; i++) {
+	                if (i === index) {
+	                    this.list[index].active = true;
+	                    $('#' + (index + 1)).attr('src', "images/" + (index + 1) + "-h.png");
+	                    console.log('this is i', i + 1);
+	                } else {
+	                    this.list[i].active = false;
+	                    $('#' + (i + 1)).attr('src', "images/" + (i + 1) + ".png");
+	                }
+	            }
+	            $('.pictures').html("<img class='animated fadeIn' src='images/" + this.list[index].picture + "'/>");
+	            $('.textPortion').text(this.list[index].text);
 	            return index;
-	        }
-	    }, {
-	        key: 'init',
-	        value: function init() {
-	            this.list[0].active = true;
 	        }
 	    }, {
 	        key: 'render',
@@ -30784,11 +30717,10 @@
 	                    )
 	                ),
 	                this.props.list.map(function (b) {
-	                    if (b.id > 1) {
-	                        return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '.png', id: b.id, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
-	                    } else {
-	                        return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '-h.png', id: b.id, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    if (b.id == 0) {
+	                        return _react2.default.createElement('img', { key: b.id, src: 'images/' + (b.id + 1) + '-h.png', id: b.id + 1, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
 	                    }
+	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
 	                }.bind(this))
 	            );
 	        }

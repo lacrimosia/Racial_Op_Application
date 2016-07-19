@@ -23,7 +23,8 @@ body {
   position: relative;
   top: -150px;
   left: 454px;
-  z-index: 0; }
+  z-index: 0;
+  cursor: pointer; }
 
 .pictures {
   width: 233px;

@@ -41,6 +41,7 @@ body{
     height: 100%;
     margin-right: 17px;
     @include Pos(relative, -150px, 454px, 0); 
+    cursor: pointer;
 }
 
 .pictures{
