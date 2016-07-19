@@ -13,17 +13,19 @@ class Bottom extends React.Component {
 
     getInfo(index){
     	console.log(index);
+    	$('.pictures').html("<img class='animated fadeIn' src='images/"+this.list[index-1].picture+"'/>");
     	return index;
     }
 
     render() {
         return (<div>
-        	
+        	<div className="placeArea"><div className="pictures"></div></div>
+        	<div className="textArea"><div className="textPortion"></div></div>
        {
         this.props.list.map(function (b) {
         
          return (
-           <img key={b.id} src={'images/'+b.id+'.png'} className="buttons" onClick={this.getInfo.bind(this, b.id)}/>
+           <img key={b.id} src={'images/'+b.id+'.png'} tabIndex={b.id} className="buttons" onClick={this.getInfo.bind(this, b.id)}/>
           );
         }.bind(this))
       }

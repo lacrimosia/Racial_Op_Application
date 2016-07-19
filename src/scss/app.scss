@@ -36,9 +36,29 @@ body{
 }
 
 .buttons{
-    width: 6%;
+    width: 5%;
     height: 100%;
-    @include Pos(relative, 320px, 249px, 0); 
+    margin-right: 17px;
+    @include Pos(relative, -150px, 454px, 0); 
+}
+
+.pictures{
+    @include wh(233px, 308px);
+    @include Pos(relative, -15px, 0px, 0);
+    overflow: hidden;
+
+    img{
+        width: 100%;
+        height: auto;
+
+    }
+}
+
+.textArea{
+    @include wh(508px, 181px);
+    @include Pos(relative, -188px, 464px, 0); 
+    overflow: hidden;
+    background: blue;
 }
 
 .intro,
@@ -196,6 +216,12 @@ body{
     color: #f1f1f1;
     @include Pos(relative, -20px, 0px, 60);
     @include wh(100%, 31px);
+}
+
+.placeArea{
+    @include wh(233px, 308px);
+    @include Pos(relative, 67px, 132px, 50);
+    background: none;
 }
 
 .titles {

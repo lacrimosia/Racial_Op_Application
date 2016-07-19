@@ -76,7 +76,7 @@
 
 	__webpack_require__(173);
 
-	var _Help = __webpack_require__(175);
+	var _Help = __webpack_require__(176);
 
 	var _Help2 = _interopRequireDefault(_Help);
 
@@ -20594,39 +20594,60 @@
 		"instructions": "Click on each",
 		"scenarios": [
 			{
-				"title": "scenario 1",
-				"picture": "pic1.jpg",
-				"text": "Information about the picture",
+				"title": "Nigerian Woman",
+				"picture": "Niger_Woman.png",
+				"text": "A black woman in Nigeria bleaching her skin.",
 				"active": false,
 				"id": 1
 			},
 			{
-				"title": "scenario 2",
-				"picture": "pic2.jpg",
-				"text": "Information about the picture2",
+				"title": "Gay Man",
+				"picture": "Gay_Man.png",
+				"text": "A gay man in the United States going through reparative or conversion therapy to cure himself of homosexuality.",
 				"active": false,
 				"id": 2
 			},
 			{
-				"title": "scenario 3",
-				"picture": "pic2.jpg",
-				"text": "Information about the picture3",
+				"title": "Korean Woman",
+				"picture": "Korean_Eyes.png",
+				"text": "A Korean woman getting surgery so that she can have a \"fold\" on her eyelids and be more attractive.",
 				"active": false,
 				"id": 3
 			},
 			{
-				"title": "scenario 3",
-				"picture": "pic2.jpg",
-				"text": "Information about the picture3",
+				"title": "Special needs",
+				"picture": "Autistic_Boy.png",
+				"text": "A young man with autism who refuses to be friends with other people with special needs, because he thinks this idea is \"retarded.\"",
 				"active": false,
 				"id": 4
 			},
 			{
-				"title": "scenario 3",
-				"picture": "pic2.jpg",
-				"text": "Information about the picture3",
+				"title": "Alaska Native",
+				"picture": "Alaskan_Native.png",
+				"text": "An Alaska Native woman who looks down on other Native people from the \"village\" and teases them for their \"village accent.\"",
 				"active": false,
 				"id": 5
+			},
+			{
+				"title": "Fillipino Man",
+				"picture": "Filipino_Guy.png",
+				"text": "A man in the Philippines spending his hard-earned money to pay for treatments in a local skin-whitening clinic.",
+				"active": false,
+				"id": 6
+			},
+			{
+				"title": "UK mother",
+				"picture": "Playing_Catch.png",
+				"text": "A mother in the United Kingdom who, while playing catch with her daughter, coaches her to \"don't throw like a girl.\"",
+				"active": false,
+				"id": 7
+			},
+			{
+				"title": "Mexican adolescent",
+				"picture": "Mexican_Family.png",
+				"text": "A Mexican American adolescent who is embarrassed of his parents as they struggled to talk with his teacher in their limited, broken, and accented English.",
+				"active": false,
+				"id": 8
 			}
 		]
 	};
@@ -30724,6 +30745,7 @@
 	        key: 'getInfo',
 	        value: function getInfo(index) {
 	            console.log(index);
+	            $('.pictures').html("<img class='animated fadeIn' src='images/" + this.list[index - 1].picture + "'/>");
 	            return index;
 	        }
 	    }, {
@@ -30732,9 +30754,19 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'placeArea' },
+	                    _react2.default.createElement('div', { className: 'pictures' })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'textArea' },
+	                    _react2.default.createElement('div', { className: 'textPortion' })
+	                ),
 	                this.props.list.map(function (b) {
 
-	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '.png', className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + b.id + '.png', tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
 	                }.bind(this))
 	            );
 	        }
@@ -30753,7 +30785,8 @@
 
 /***/ },
 /* 174 */,
-/* 175 */
+/* 175 */,
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

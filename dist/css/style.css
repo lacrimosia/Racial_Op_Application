@@ -17,12 +17,35 @@ body {
   background-size: 100%; }
 
 .buttons {
-  width: 6%;
+  width: 5%;
   height: 100%;
+  margin-right: 17px;
   position: relative;
-  top: 320px;
-  left: 249px;
+  top: -150px;
+  left: 454px;
   z-index: 0; }
+
+.pictures {
+  width: 233px;
+  height: 308px;
+  position: relative;
+  top: -15px;
+  left: 0px;
+  z-index: 0;
+  overflow: hidden; }
+  .pictures img {
+    width: 100%;
+    height: auto; }
+
+.textArea {
+  width: 508px;
+  height: 181px;
+  position: relative;
+  top: -188px;
+  left: 464px;
+  z-index: 0;
+  overflow: hidden;
+  background: blue; }
 
 .intro,
 .help_Menu {
@@ -184,6 +207,15 @@ body {
   z-index: 60;
   width: 100%;
   height: 31px; }
+
+.placeArea {
+  width: 233px;
+  height: 308px;
+  position: relative;
+  top: 67px;
+  left: 132px;
+  z-index: 50;
+  background: none; }
 
 .titles {
   float: left;
