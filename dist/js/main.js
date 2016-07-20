@@ -20421,6 +20421,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactHotkey = __webpack_require__(189);
+
+	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20432,6 +20436,8 @@
 	var data = __webpack_require__(169);
 	var $ = __webpack_require__(170);
 	var off = false;
+
+	_reactHotkey2.default.activate();
 
 	var Menu = function (_React$Component) {
 	    _inherits(Menu, _React$Component);
@@ -20445,14 +20451,32 @@
 	        _this.title = data.title;
 	        _this.instructions = data.instructions;
 	        _this.openBox = _this.openBox.bind(_this);
-	        _this.reflect = "fwwef";
+	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(Menu, [{
-	        key: 'reloadPage',
-	        value: function reloadPage() {
+	        key: 'reload',
+	        value: function reload() {
 	            location.reload();
+	        }
+	    }, {
+	        key: 'keyboardShortcuts',
+	        value: function keyboardShortcuts(e) {
+	            if (e.keyCode == 82) {
+	                // R Key
+	                this.reload();
+	            }
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _reactHotkey2.default.addHandler(this.hotkeyHandler);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            _reactHotkey2.default.removeHandler(this.hotkeyHandler);
 	        }
 	    }, {
 	        key: 'openBox',
@@ -20497,7 +20521,7 @@
 	                        { className: 'menu' },
 	                        _react2.default.createElement(
 	                            'button',
-	                            { className: 'reload btn', title: 'Reload' },
+	                            { className: 'reload btn', title: 'Reload', onClick: this.reload.bind(this) },
 	                            _react2.default.createElement('i', { className: 'fa fa-refresh' }),
 	                            ' Reload'
 	                        ),

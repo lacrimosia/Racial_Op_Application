@@ -2,6 +2,8 @@ import React from 'react';
 const data = require('../data/data.json');
 const $ = require('jquery');
 let off = false;
+import hotkey from 'react-hotkey';
+hotkey.activate();
 
 class Menu extends React.Component {
     constructor(props) {
@@ -10,12 +12,28 @@ class Menu extends React.Component {
         this.title = data.title;
         this.instructions = data.instructions;
         this.openBox = this.openBox.bind(this);
-        this.reflect = "fwwef";
+        this.hotkeyHandler = this.keyboardShortcuts.bind(this);
     }
 
-    reloadPage() {
+    reload() {
         location.reload();
     }
+
+     keyboardShortcuts(e) {
+        if(e.keyCode == 82){
+            // R Key
+            this.reload();
+        }  
+     }
+
+     componentDidMount() {
+        hotkey.addHandler(this.hotkeyHandler);
+    }
+ 
+    componentWillUnmount() {
+        hotkey.removeHandler(this.hotkeyHandler);
+    }
+
 
     openBox(box){	
     	console.log(box);
@@ -39,7 +57,7 @@ class Menu extends React.Component {
         <div className="header">
         	<div className="titles"><h5>{this.title} - Interactive</h5></div>
         	<div className="menu">
-        		<button className="reload btn" title="Reload"><i className="fa fa-refresh"></i> Reload</button>
+        		<button className="reload btn" title="Reload" onClick={this.reload.bind(this)}><i className="fa fa-refresh"></i> Reload</button>
         		<button className="help btn" title="Help Menu" onClick={()=>this.openBox(this.reflect)}><i className="fa fa-question-circle"></i> Help</button>
         	</div>
         </div>
