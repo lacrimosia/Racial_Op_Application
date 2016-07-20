@@ -20447,10 +20447,8 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).call(this, props));
 
-	        _this.displayName = 'Menu';
 	        _this.title = data.title;
 	        _this.instructions = data.instructions;
-	        _this.openBox = _this.openBox.bind(_this);
 	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
 	        return _this;
 	    }
@@ -20467,6 +20465,10 @@
 	                // R Key
 	                this.reload();
 	            }
+	            if (e.keyCode == 72 || e.keyCode == 191) {
+	                // h or ? KEY
+	                this.help();
+	            }
 	        }
 	    }, {
 	        key: 'componentDidMount',
@@ -20479,27 +20481,13 @@
 	            _reactHotkey2.default.removeHandler(this.hotkeyHandler);
 	        }
 	    }, {
-	        key: 'openBox',
-	        value: function openBox(box) {
-	            console.log(box);
-	            off = !off;
-	            if (off == true) {
-	                $('#App').css({
-	                    background: 'pink',
-	                    transition: 'linear 0.8s background'
-	                });
-	            } else {
-	                $('#App').css({
-	                    background: 'yellow',
-	                    transition: 'linear 0.8s background'
-	                });
-	            }
+	        key: 'help',
+	        value: function help() {
+	            alert("this is help");
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
-
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -20527,9 +20515,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'button',
-	                            { className: 'help btn', title: 'Help Menu', onClick: function onClick() {
-	                                    return _this2.openBox(_this2.reflect);
-	                                } },
+	                            { className: 'help btn', title: 'Help Menu', onClick: this.help.bind(this) },
 	                            _react2.default.createElement('i', { className: 'fa fa-question-circle' }),
 	                            ' Help'
 	                        )

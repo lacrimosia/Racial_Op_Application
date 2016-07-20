@@ -8,10 +8,8 @@ hotkey.activate();
 class Menu extends React.Component {
     constructor(props) {
         super(props);
-        this.displayName = 'Menu';
         this.title = data.title;
         this.instructions = data.instructions;
-        this.openBox = this.openBox.bind(this);
         this.hotkeyHandler = this.keyboardShortcuts.bind(this);
     }
 
@@ -24,6 +22,10 @@ class Menu extends React.Component {
             // R Key
             this.reload();
         }  
+        if(e.keyCode == 72 || e.keyCode == 191){
+            // h or ? KEY
+            this.help();
+        } 
      }
 
      componentDidMount() {
@@ -34,22 +36,8 @@ class Menu extends React.Component {
         hotkey.removeHandler(this.hotkeyHandler);
     }
 
-
-    openBox(box){	
-    	console.log(box);
-    	off = !off;
-    	if(off==true){
-    		$('#App').css({
-    		background: 'pink',
-    		transition: 'linear 0.8s background'
-    	  });
-    	}else{
-    		$('#App').css({
-    		background: 'yellow',
-    		transition: 'linear 0.8s background'
-    	  });
-    	}
-    	
+    help(){
+        alert("this is help");
     }
 
     render() {
@@ -58,7 +46,7 @@ class Menu extends React.Component {
         	<div className="titles"><h5>{this.title} - Interactive</h5></div>
         	<div className="menu">
         		<button className="reload btn" title="Reload" onClick={this.reload.bind(this)}><i className="fa fa-refresh"></i> Reload</button>
-        		<button className="help btn" title="Help Menu" onClick={()=>this.openBox(this.reflect)}><i className="fa fa-question-circle"></i> Help</button>
+        		<button className="help btn" title="Help Menu" onClick={this.help.bind(this)}><i className="fa fa-question-circle"></i> Help</button>
         	</div>
         </div>
         	</div>// end div
