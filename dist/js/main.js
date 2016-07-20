@@ -30652,6 +30652,10 @@
 
 	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
 
+	var _reactNativeListener = __webpack_require__(191);
+
+	var _reactNativeListener2 = _interopRequireDefault(_reactNativeListener);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30674,7 +30678,7 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Bottom).call(this, props));
 
-	        _this.list = _this.props.list; // content list from main.js
+	        _this.list = _this.props.list;
 	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
 	        return _this;
 	    }
@@ -30687,10 +30691,11 @@
 	                e.preventDefault();
 	                this.count = parseInt($('.buttons:focus').attr('tabindex'));
 	                if (this.count <= this.list.length) {
-	                    console.log('the count', this.count);
+	                    console.log('the count', this.count - 1);
 	                    this.getInfo(this.count - 1);
 	                } else {
-	                    this.count = parseInt($('.buttons:focus').attr('tabindex', 1));
+	                    $('#1').focus();
+	                    this.getInfo(0);
 	                }
 	            }
 	        }
@@ -30748,7 +30753,18 @@
 	                    )
 	                ),
 	                this.props.list.map(function (b) {
-	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    if (b.id === 0) {
+	                        return _react2.default.createElement(
+	                            _reactNativeListener2.default,
+	                            { key: b.id, onClick: this.getInfo.bind(this, b.id) },
+	                            _react2.default.createElement('img', { src: 'images/' + (b.id + 1) + '-h.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons' })
+	                        );
+	                    }
+	                    return _react2.default.createElement(
+	                        _reactNativeListener2.default,
+	                        { key: b.id, onClick: this.getInfo.bind(this, b.id) },
+	                        _react2.default.createElement('img', { src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons' })
+	                    );
 	                }.bind(this))
 	            );
 	        }
@@ -30985,6 +31001,117 @@
 
 	module.exports = listen
 
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _NativeListener = __webpack_require__(192);
+
+	var _NativeListener2 = _interopRequireDefault(_NativeListener);
+
+	exports['default'] = _NativeListener2['default'];
+	module.exports = exports['default'];
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _reactDom = __webpack_require__(38);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var events = ['KeyDown', 'KeyPress', 'KeyUp', 'Click', 'ContextMenu', 'DoubleClick', 'Drag', 'DragEnd', 'DragEnter', 'DragExit', 'DragLeave', 'DragOver', 'DragStart', 'Drop', 'MouseDown', 'MouseEnter', 'MouseLeave', 'MouseMove', 'MouseOut', 'MouseOver', 'MouseUp'];
+
+	var aliases = {
+	  'DoubleClick': 'dblclick'
+	};
+
+	var toEventName = function toEventName(event) {
+	  return (aliases[event] || event).toLowerCase();
+	};
+
+	var NativeListener = (function (_Component) {
+	  _inherits(NativeListener, _Component);
+
+	  function NativeListener() {
+	    _classCallCheck(this, NativeListener);
+
+	    _Component.apply(this, arguments);
+	  }
+
+	  NativeListener.prototype.componentDidMount = function componentDidMount() {
+	    var props = this.props;
+	    var element = _reactDom2['default'].findDOMNode(this);
+	    events.forEach(function (event) {
+	      var capture = props['on' + event + 'Capture'];
+	      var bubble = props['on' + event];
+	      var stop = props['stop' + event];
+	      if (capture && typeof capture === 'function') {
+	        element.addEventListener(toEventName(event), capture, true);
+	      }
+	      if (bubble && typeof bubble === 'function') {
+	        element.addEventListener(toEventName(event), bubble, false);
+	      }
+	      if (stop === true) {
+	        element.addEventListener(toEventName(event), function (nativeEvent) {
+	          return nativeEvent.stopPropagation();
+	        }, false);
+	      }
+	    });
+	  };
+
+	  NativeListener.prototype.render = function render() {
+	    return this.props.children;
+	  };
+
+	  _createClass(NativeListener, null, [{
+	    key: 'displayName',
+	    value: 'NativeListener',
+	    enumerable: true
+	  }, {
+	    key: 'propTypes',
+	    value: _extends({
+	      children: function children(props, propName) {
+	        if (props[propName].length) {
+	          return new Error('NativeListener can only wrap one element');
+	        }
+	      }
+	    }, events.reduce(function (accumulator, event) {
+	      var _extends2;
+
+	      return _extends({}, accumulator, (_extends2 = {}, _extends2['on' + event] = _react.PropTypes.func, _extends2['on' + event + 'Capture'] = _react.PropTypes.func, _extends2['stop' + event] = _react.PropTypes.bool, _extends2));
+	    }, {})),
+	    enumerable: true
+	  }]);
+
+	  return NativeListener;
+	})(_react.Component);
+
+	exports['default'] = NativeListener;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

@@ -45,6 +45,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.22.0",
     "lodash": "^4.13.1",
-    "react-hotkey": "^0.6.0"
+    "react-hotkey": "^0.6.0",
+    "react-native-listener": "^1.0.1"
   }
 }

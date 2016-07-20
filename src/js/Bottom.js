@@ -3,13 +3,14 @@
 import React from 'react';
 const $ = require('jquery');
 import hotkey from 'react-hotkey';
+import NativeListener from 'react-native-listener';
 hotkey.activate();
 
 // Bottom Navigation Component for changing the picture & text
 class Bottom extends React.Component {
     constructor(props) {
         super(props);
-        this.list = this.props.list;  // content list from main.js
+        this.list = this.props.list;
         this.hotkeyHandler = this.keyboardShortcuts.bind(this);
     }
 
@@ -19,15 +20,14 @@ class Bottom extends React.Component {
         e.preventDefault();
         this.count = parseInt($('.buttons:focus').attr('tabindex'));
         	if(this.count <= this.list.length){
-        		console.log('the count', this.count);
+        		console.log('the count', this.count-1);
         		this.getInfo(this.count-1);
         	}else{
-        		this.count = parseInt($('.buttons:focus').attr('tabindex', 1));
-        	}
-        		
+        		$('#1').focus();
+        		this.getInfo(0);
         }
     }
- 
+ }
     componentDidMount() {
         hotkey.addHandler(this.hotkeyHandler);
     }
@@ -60,8 +60,17 @@ class Bottom extends React.Component {
         	<div className="textArea"><div className="textPortion animated fadeIn">{this.list[0].text}</div></div>
        {
         this.props.list.map(function (b) { 
+       		if(b.id===0){
+       			return (
+       			<NativeListener key={b.id} onClick={this.getInfo.bind(this, b.id)}>
+           <img  src={'images/'+(b.id+1)+'-h.png'} id={(b.id+1)} tabIndex={(b.id+1)} className="buttons" />
+          </NativeListener>
+          );
+       		}
         return (
-           <img key={b.id} src={'images/'+(b.id+1)+'.png'} id={(b.id+1)} tabIndex={(b.id+1)} className="buttons" onClick={this.getInfo.bind(this, b.id)}/>
+        <NativeListener key={b.id} onClick={this.getInfo.bind(this, b.id)}>
+           <img src={'images/'+(b.id+1)+'.png'} id={(b.id+1)} tabIndex={(b.id+1)} className="buttons" />
+          </NativeListener>
           );
         }.bind(this))
       }
