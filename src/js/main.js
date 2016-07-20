@@ -7,8 +7,6 @@ import Bottom from './Bottom';
 import '../scss/app.scss';
 import Help from './Help';
 const data = require('../data/data.json');
-import keydown from 'react-keydown';
-
 
 class App extends React.Component {
     constructor(props) {

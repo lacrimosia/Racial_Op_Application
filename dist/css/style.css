@@ -30,7 +30,7 @@ body {
   width: 233px;
   height: 308px;
   position: relative;
-  top: -15px;
+  top: 0px;
   left: 0px;
   z-index: 0;
   overflow: hidden; }
@@ -42,7 +42,7 @@ body {
   width: 508px;
   height: 181px;
   position: relative;
-  top: -188px;
+  top: -170px;
   left: 464px;
   z-index: 0;
   overflow: hidden;
@@ -203,11 +203,10 @@ body {
 
 /* header bar */
 .header {
-  background: #222641;
   font-family: sans-serif, verdana !important;
   color: #f1f1f1;
   position: relative;
-  top: -20px;
+  top: 0px;
   left: 0px;
   z-index: 60;
   width: 100%;

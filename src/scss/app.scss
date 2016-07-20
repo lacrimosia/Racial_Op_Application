@@ -46,7 +46,7 @@ body{
 
 .pictures{
     @include wh(233px, 308px);
-    @include Pos(relative, -15px, 0px, 0);
+    @include Pos(relative, 0px, 0px, 0);
     overflow: hidden;
 
     img{
@@ -58,7 +58,7 @@ body{
 
 .textArea{
     @include wh(508px, 181px);
-    @include Pos(relative, -188px, 464px, 0); 
+    @include Pos(relative, -170px, 464px, 0); 
     overflow: hidden;
     background: none;
 
@@ -219,10 +219,10 @@ body{
 /* header bar */
 
 .header {
-   background: rgb(34, 38, 65);
+  // background: rgb(34, 38, 65);
     font-family: $fonts;
     color: #f1f1f1;
-    @include Pos(relative, -20px, 0px, 60);
+    @include Pos(relative, 0px, 0px, 60);
     @include wh(100%, 31px);
 }
 

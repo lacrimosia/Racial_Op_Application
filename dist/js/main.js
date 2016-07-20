@@ -66,15 +66,11 @@
 
 	var _Bottom2 = _interopRequireDefault(_Bottom);
 
-	__webpack_require__(172);
+	__webpack_require__(185);
 
-	var _Help = __webpack_require__(175);
+	var _Help = __webpack_require__(188);
 
 	var _Help2 = _interopRequireDefault(_Help);
-
-	var _reactKeydown = __webpack_require__(176);
-
-	var _reactKeydown2 = _interopRequireDefault(_reactKeydown);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20483,7 +20479,6 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                '  // start div',
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'header' },
@@ -30653,9 +30648,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactKeydown = __webpack_require__(176);
+	var _reactHotkey = __webpack_require__(189);
 
-	var _reactKeydown2 = _interopRequireDefault(_reactKeydown);
+	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30666,6 +30661,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var $ = __webpack_require__(170);
+
+	_reactHotkey2.default.activate();
 
 	// Bottom Navigation Component for changing the picture & text
 
@@ -30678,13 +30675,46 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Bottom).call(this, props));
 
 	        _this.list = _this.props.list; // content list from main.js
+	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
+	        _this.count = 0;
 	        return _this;
 	    }
 
 	    _createClass(Bottom, [{
+	        key: 'keyboardShortcuts',
+	        value: function keyboardShortcuts(e) {
+	            e.preventDefault();
+	            if (e.keyCode == 39) {
+	                // RIGHT ARROW KEY
+	                //	this.tabIndex = $('.buttons:focus').attr('tabindex');
+	                if (this.count < this.list.length - 1) {
+	                    ++this.count;
+	                    console.log('the count', this.count);
+	                    this.getInfo(this.count);
+	                } else {
+	                    this.count = -1;
+	                }
+	            }
+	            if (e.keyCode == 37) {
+	                // LEFT ARROW KEY	
+	                if (this.count > 0) {
+	                    --this.count;
+	                    console.log('the count', this.count);
+	                    this.getInfo(this.count);
+	                } else {
+	                    this.count = -1;
+	                }
+	            }
+	        }
+	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            //  $(document.body).on('keydown', this.getInfo);
+	            _reactHotkey2.default.addHandler(this.hotkeyHandler);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            _reactHotkey2.default.removeHandler(this.hotkeyHandler);
 	        }
 	    }, {
 	        key: 'getInfo',
@@ -30703,7 +30733,6 @@
 
 	            $('.pictures').html("<img class='animated fadeIn' src='images/" + this.list[index].picture + "'/>");
 	            $('.textPortion').text(this.list[index].text);
-
 	            return index;
 	        }
 	    }, {
@@ -30746,15 +30775,28 @@
 	exports.default = Bottom;
 
 /***/ },
-/* 172 */
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 173 */,
-/* 174 */,
-/* 175 */
+/* 186 */,
+/* 187 */,
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30806,1163 +30848,158 @@
 	exports.default = Help;
 
 /***/ },
-/* 176 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// @keydown and @keydownScoped
-	'use strict';
+	var listen = __webpack_require__(190);
+	var SyntheticKeyboardEvent = __webpack_require__(153);
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
-
-	var _decorators = __webpack_require__(177);
-
-	exports['default'] = _interopRequire(_decorators);
-	Object.defineProperty(exports, 'keydownScoped', {
-	  enumerable: true,
-	  get: function get() {
-	    return _decorators.keydownScoped;
-	  }
-	});
-
-	// setBinding - only useful if you're not going to use decorators
-
-	var _store = __webpack_require__(179);
-
-	Object.defineProperty(exports, 'setBinding', {
-	  enumerable: true,
-	  get: function get() {
-	    return _store.setBinding;
-	  }
-	});
-
-	// Keys - use this to find key codes for strings. for example: Keys.j, Keys.enter
-
-	var _libKeys = __webpack_require__(180);
-
-	exports.Keys = _interopRequire(_libKeys);
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
+	var documentListener = {};
 	/**
-	 * @module decorators
-	 *
+	 * Enable the global event listener. Is idempotent.
 	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _class_decorator = __webpack_require__(178);
-
-	var _class_decorator2 = _interopRequireDefault(_class_decorator);
-
-	var _method_decorator = __webpack_require__(187);
-
-	var _method_decorator2 = _interopRequireDefault(_method_decorator);
-
-	var _method_decorator_scoped = __webpack_require__(188);
-
-	var _method_decorator_scoped2 = _interopRequireDefault(_method_decorator_scoped);
-
-	/**
-	 * _decorator
-	 *
-	 * @access private
-	 * @param {Function} methodFn The method wrapper to delegate to, based on whether user has specified a scoped decorator or not
-	 * @param {Array} ...args Remainder of arguments passed in
-	 * @return {Function} The decorated class or method
-	 */
-	function _decorator(methodFn) {
-	  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	    args[_key - 1] = arguments[_key];
-	  }
-
-	  // check the first argument to see if it's a user-supplied keycode or array
-	  // of keycodes, or if it's the wrapped class or method
-	  var testArg = args[0];
-	  var isArray = Array.isArray(testArg);
-
-	  // if the test argument is not an object or function, it is user-supplied
-	  // keycodes. else there are no arguments and it's just the wrapped class
-	  // (method decorators must have keycode arguments).
-	  if (isArray || ~['string', 'number'].indexOf(typeof testArg)) {
-	    var _ret = (function () {
-	      var keys = isArray ? testArg : args;
-
-	      // return the decorator function, which on the next call will look for
-	      // the presence of a method name to determine if this is a wrapped method
-	      // or component
-	      return {
-	        v: function (target, methodName, descriptor) {
-	          return methodName ? methodFn({ target: target, descriptor: descriptor, keys: keys }) : (0, _class_decorator2['default'])(target, keys);
-	        }
-	      };
-	    })();
-
-	    if (typeof _ret === 'object') return _ret.v;
-	  } else {
-	    var methodName = args[1];
-
-	    // method decorators without keycode (which) arguments are not allowed.
-	    if (!methodName) {
-	      return _class_decorator2['default'].apply(undefined, args);
-	    } else {
-	      console.warn(methodName + ': Method decorators must have keycode arguments, so the decorator for this method will not do anything');
+	exports.activate = function(event) {
+	    if (!event) {
+	        event = 'keyup';
 	    }
-	  }
-	}
-
-	/**
-	 * keydownScoped
-	 *
-	 * Method decorator that will look for changes to its targeted component's
-	 * `keydown` props to decide when to trigger, rather than responding directly
-	 * to keydown events. This lets you specify a @keydown decorated class higher
-	 * up in the view hierarchy for larger scoping of keydown events, or for
-	 * programmatically sending keydown events as props into the components in order
-	 * to trigger decorated methods with matching keys.
-	 *
-	 * @access public
-	 * @param {Array} ...args  All (or no) arguments passed in from decoration
-	 * @return {Function} The decorated class or method
-	 */
-	function keydownScoped() {
-	  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	    args[_key2] = arguments[_key2];
-	  }
-
-	  return _decorator.apply(undefined, [_method_decorator_scoped2['default']].concat(args));
-	}
-
-	/**
-	 * keydown
-	 *
-	 * The main decorator and default export, handles both classes and methods.
-	 *
-	 * @access public
-	 * @param {Array} ...args  All (or no) arguments passed in from decoration
-	 * @return {Function} The decorated class or method
-	 */
-	function keydown() {
-	  for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-	    args[_key3] = arguments[_key3];
-	  }
-
-	  return _decorator.apply(undefined, [_method_decorator2['default']].concat(args));
-	}
-
-	exports['default'] = keydown;
-	exports.keydownScoped = keydownScoped;
-
-/***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * @module componentWrapper
-	 *
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _store = __webpack_require__(179);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	var _event_handlers = __webpack_require__(184);
-
-	/**
-	 * componentWrapper
-	 *
-	 * @access public
-	 * @param {object} WrappedComponent React component class to be wrapped
-	 * @param {array} [keys] The key(s) bound to the class
-	 * @return {object} The higher-order function that wraps the decorated class
-	 */
-	function componentWrapper(WrappedComponent) {
-	  var keys = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-	  var KeyBoardHelper = (function (_React$Component) {
-	    _inherits(KeyBoardHelper, _React$Component);
-
-	    function KeyBoardHelper(props) {
-	      _classCallCheck(this, KeyBoardHelper);
-
-	      _get(Object.getPrototypeOf(KeyBoardHelper.prototype), 'constructor', this).call(this, props);
-	      this.state = {
-	        event: null
-	      };
+	    if (!documentListener[event]) {
+	        documentListener[event] = listen(document, event, handle);
 	    }
-
-	    _createClass(KeyBoardHelper, [{
-	      key: 'componentDidMount',
-	      value: function componentDidMount() {
-	        (0, _event_handlers.onMount)(this);
-	      }
-	    }, {
-	      key: 'componentWillUnmount',
-	      value: function componentWillUnmount() {
-	        (0, _event_handlers.onUnmount)(this);
-	      }
-	    }, {
-	      key: 'handleKeyDown',
-	      value: function handleKeyDown(event) {
-	        var _this = this;
-
-	        // to simulate a keypress, set the event and then clear it in the callback
-	        this.setState({ event: event }, function () {
-	          return _this.setState({ event: null });
-	        });
-	      }
-	    }, {
-	      key: 'render',
-	      value: function render() {
-	        return _react2['default'].createElement(WrappedComponent, _extends({}, this.props, { keydown: this.state }));
-	      }
-	    }]);
-
-	    return KeyBoardHelper;
-	  })(_react2['default'].Component);
-
-	  _store2['default'].setBinding({ keys: keys, fn: KeyBoardHelper.prototype.handleKeyDown, target: KeyBoardHelper.prototype });
-
-	  return KeyBoardHelper;
-	}
-
-	exports['default'] = componentWrapper;
-	module.exports = exports['default'];
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
+	    return exports;
+	};
 	/**
-	 * @module store
-	 *
+	 * Disable the global event listener. Is idempotent.
 	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-
-	exports._resetStore = _resetStore;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
-	var _libKeys = __webpack_require__(180);
-
-	var _libMatch_keys = __webpack_require__(181);
-
-	var _libMatch_keys2 = _interopRequireDefault(_libMatch_keys);
-
-	var _libParse_keys = __webpack_require__(182);
-
-	var _libParse_keys2 = _interopRequireDefault(_libParse_keys);
-
-	var _libUuid = __webpack_require__(183);
-
-	var _libUuid2 = _interopRequireDefault(_libUuid);
-
-	/**
-	 * private
-	 * 
-	 */
-
-	// dict for class prototypes => bindings
-	var _handlers = new Map();
-
-	// all mounted instances that have keybindings
-	var _instances = new Set();
-
-	// for testing
-
-	function _resetStore() {
-	  _handlers.clear();
-	  _instances.clear();
-	}
-
-	/**
-	 * public
-	 *
-	 */
-
-	var Store = {
-
-	  /**
-	   * activate
-	   *
-	   * @access public
-	   * @param {object} instance Instantiated class that extended React.Component, to be focused to receive keydown events
-	   */
-	  activate: function activate(instances) {
-	    var instancesArray = [].concat(instances);
-
-	    // if no components were found as ancestors of the event target,
-	    // effectively deactivate keydown handling by capping the set of instances
-	    // with `null`.
-	    if (!instancesArray.length) {
-	      _instances.add(null);
-	    } else {
-	      _instances['delete'](null);
-
-	      // deleting and then adding the instance(s) has the effect of sorting the set
-	      // according to instance activation (ascending)
-	      instancesArray.forEach(function (instance) {
-	        _instances['delete'](instance);
-	        _instances.add(instance);
-	      });
+	exports.disable = function(event) {
+	    if (!event) {
+	        event = 'keyup';
 	    }
-	  },
-
-	  /**
-	   * deleteInstance
-	   *
-	   * @access public
-	   * @param {object} target Instantiated class that extended React.Component
-	   * @return {boolean} The value set.has( target ) would have returned prior to deletion
-	   */
-	  deleteInstance: function deleteInstance(target) {
-	    _instances['delete'](target);
-	  },
-
-	  findBindingForEvent: function findBindingForEvent(event) {
-	    if (!_instances.has(null)) {
-	      var keyMatchesEvent = function keyMatchesEvent(keySet) {
-	        return (0, _libMatch_keys2['default'])({ keySet: keySet, event: event });
-	      };
-
-	      // loop through instances in reverse activation order so that most
-	      // recently activated instance gets first dibs on event
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
-
-	      try {
-	        for (var _iterator = [].concat(_toConsumableArray(_instances)).reverse()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var instance = _step.value;
-
-	          var bindings = this.getBinding(instance.constructor.prototype);
-	          var _iteratorNormalCompletion2 = true;
-	          var _didIteratorError2 = false;
-	          var _iteratorError2 = undefined;
-
-	          try {
-	            for (var _iterator2 = bindings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	              var _step2$value = _slicedToArray(_step2.value, 2);
-
-	              var keySets = _step2$value[0];
-	              var fn = _step2$value[1];
-
-	              if ((0, _libKeys.allKeys)(keySets) || keySets.some(keyMatchesEvent)) {
-	                // return when matching keybinding is found - i.e. only one
-	                // keybound component can respond to a given key code. to get around this,
-	                // scope a common ancestor component class with @keydown and use
-	                // @keydownScoped to bind the duplicate keys in your child components
-	                // (or just inspect nextProps.keydown.event).
-	                return { fn: fn, instance: instance };
-	              }
-	            }
-	          } catch (err) {
-	            _didIteratorError2 = true;
-	            _iteratorError2 = err;
-	          } finally {
-	            try {
-	              if (!_iteratorNormalCompletion2 && _iterator2['return']) {
-	                _iterator2['return']();
-	              }
-	            } finally {
-	              if (_didIteratorError2) {
-	                throw _iteratorError2;
-	              }
-	            }
-	          }
-	        }
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion && _iterator['return']) {
-	            _iterator['return']();
-	          }
-	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
-	          }
-	        }
-	      }
+	    if (documentListener[event]) {
+	        documentListener[event].remove();
+	        documentListener[event] = null;
 	    }
-	    return null;
-	  },
-
-	  /**
-	   * getBinding
-	   *
-	   * @access public
-	   * @param {object} target Class used as key in dict of key bindings
-	   * @return {object} The object containing bindings for the given class
-	   */
-	  getBinding: function getBinding(_ref) {
-	    var __reactKeydownUUID = _ref.__reactKeydownUUID;
-
-	    return _handlers.get(__reactKeydownUUID);
-	  },
-
-	  /**
-	   * getInstances
-	   *
-	   * @access public
-	   * @return {set} All stored instances (all mounted component instances with keybindings)
-	   */
-	  getInstances: function getInstances() {
-	    return _instances;
-	  },
-
-	  /**
-	   * isEmpty
-	   *
-	   * @access public
-	   * @return {number} Size of the set of all stored instances
-	   */
-	  isEmpty: function isEmpty() {
-	    return !_instances.size;
-	  },
-
-	  /**
-	   * setBinding
-	   *
-	   * @access public
-	   * @param {object} args All arguments necessary to set the binding
-	   * @param {array} args.keys Key codes that should trigger the fn
-	   * @param {function} args.fn The callback to be triggered when given keys are pressed
-	   * @param {object} args.target The decorated class
-	   */
-	  setBinding: function setBinding(_ref2) {
-	    var keys = _ref2.keys;
-	    var fn = _ref2.fn;
-	    var target = _ref2.target;
-
-	    var keySets = keys ? (0, _libParse_keys2['default'])(keys) : (0, _libKeys.allKeys)();
-	    var __reactKeydownUUID = target.__reactKeydownUUID;
-
-	    if (!__reactKeydownUUID) {
-	      target.__reactKeydownUUID = (0, _libUuid2['default'])();
-	      _handlers.set(target.__reactKeydownUUID, new Map([[keySets, fn]]));
-	    } else {
-	      _handlers.get(__reactKeydownUUID).set(keySets, fn);
-	    }
-	  }
 	};
 
-	exports['default'] = Store;
+	// Container for all the handlers
+	var handlers = [];
 
-/***/ },
-/* 180 */
-/***/ function(module, exports) {
-
-	// TODO: Need better, more complete, and more methodical key definitions
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports.allKeys = allKeys;
-	var Keys = {
-	  backspace: 8,
-	  tab: 9,
-	  enter: 13,
-	  'return': 13,
-	  esc: 27,
-	  space: 32,
-	  left: 37,
-	  up: 38,
-	  right: 39,
-	  down: 40,
-	  ';': 186,
-	  '=': 187,
-	  ',': 188,
-	  '-': 189,
-	  '.': 190,
-	  '/': 191,
-	  '`': 192,
-	  '[': 219,
-	  '\\': 220,
-	  ']': 221
+	/**
+	 * Adds the function `handler` to the array of handlers invoked
+	 * upon activated keyboard events.
+	 */
+	exports.addHandler = function(handler) {
+	    handlers.push(handler);
 	};
 
-	// Add uppercase versions of keys above for backwards compatibility
-	Object.keys(Keys).forEach(function (key) {
-	  return Keys[key.toUpperCase()] = Keys[key];
-	});
-
-	'0123456789'.split('').forEach(function (num, index) {
-	  return Keys[num] = index + 48;
-	});
-
-	'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function (letter, index) {
-	  Keys[letter] = index + 65;
-	  Keys[letter.toLowerCase()] = index + 65;
-	});
-
-	// fn keys
-	Array(12).fill().forEach(function (item, index) {
-	  return Keys['f' + (index + 1)] = 112 + index;
-	});
-
-	var modifiers = {
-	  control: 'ctrl',
-	  ctrl: 'ctrl',
-	  shift: 'shift',
-	  meta: 'meta',
-	  cmd: 'meta',
-	  command: 'meta',
-	  option: 'alt',
-	  alt: 'alt'
+	/**
+	 * Removes the function `handler`, which was previously added with
+	 * `addHandler`, from the array of keyboard event handlers.
+	 */
+	exports.removeHandler = function(handler) {
+	    var index = handlers.indexOf(handler);
+	    if (index >= 0)
+	        handlers.splice(index, 1);
 	};
 
-	exports.modifiers = modifiers;
-
-	function allKeys(arg) {
-	  return arg ? typeof arg === 'symbol' : Symbol('allKeys');
-	}
-
-	exports['default'] = Keys;
-
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _keys = __webpack_require__(180);
-
-	var modKeys = Object.keys(_keys.modifiers);
-
-	function matchKeys(_ref) {
-	  var _ref$keySet = _ref.keySet;
-	  var key = _ref$keySet.key;
-	  var _ref$keySet$modifiers = _ref$keySet.modifiers;
-	  var modifiers = _ref$keySet$modifiers === undefined ? [] : _ref$keySet$modifiers;
-	  var event = _ref.event;
-
-	  var keysMatch = false;
-	  if (key === event.which) {
-	    (function () {
-	      var evtModKeys = modKeys.filter(function (modKey) {
-	        return event[modKey + 'Key'];
-	      }).sort();
-	      keysMatch = modifiers.length === evtModKeys.length && modifiers.every(function (modKey, index) {
-	        return evtModKeys[index] === modKey;
-	      });
-	    })();
-	  }
-	  return keysMatch;
-	}
-
-	exports['default'] = matchKeys;
-	module.exports = exports['default'];
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _keys = __webpack_require__(180);
-
-	var _keys2 = _interopRequireDefault(_keys);
-
-	function parseKeys(keysArray) {
-	  return keysArray.map(function (key) {
-	    var keySet = { key: key };
-	    if (typeof key === 'string') {
-	      var keyString = key.toLowerCase().trim();
-	      var matches = keyString.split(/\s?\+\s?/);
-	      keySet = matches.length === 1 ? { key: _keys2['default'][keyString] } : {
-	        key: _keys2['default'][matches.pop()],
-	        modifiers: matches.map(function (modKey) {
-	          return _keys.modifiers[modKey];
-	        }).sort()
-	      };
-	    }
-	    return keySet;
-	  });
-	}
-
-	exports['default'] = parseKeys;
-	module.exports = exports['default'];
-
-/***/ },
-/* 183 */
-/***/ function(module, exports) {
 
 	/**
-	 * http://jsperf.com/uuid-generator-opt/4 
-	 *
+	 * Mixin that calls `handlerName` on your component if it is mounted and a
+	 * key event has bubbled up to the document
 	 */
-
-	// Counter being incremented. JS is single-threaded, so it'll Just Work™.
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = uuid;
-	var __counter = 1;
-
-	/**
-	 * Returns a process-wide unique identifier.
-	 */
-
-	function uuid() {
-	  return "uid-" + __counter++;
-	}
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* eslint-disable no-use-before-define */
-	/**
-	 * @module eventHandlers
-	 *
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports._onClick = _onClick;
-	exports._onKeyDown = _onKeyDown;
-	exports._shouldConsider = _shouldConsider;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
-	var _libDom_helpers = __webpack_require__(185);
-
-	var _libDom_helpers2 = _interopRequireDefault(_libDom_helpers);
-
-	var _libListeners = __webpack_require__(186);
-
-	var _libListeners2 = _interopRequireDefault(_libListeners);
-
-	var _store = __webpack_require__(179);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	/**
-	 * private
-	 *
-	 */
-
-	/**
-	 * _onClick
-	 *
-	 * @access private
-	 * @param {object} event The click event object
-	 * @param {object} event.target The DOM node from the click event
-	 */
-
-	function _onClick(_ref) {
-	  var target = _ref.target;
-
-	  _store2['default'].activate([].concat(_toConsumableArray(_store2['default'].getInstances())).reduce(_libDom_helpers2['default'].findContainerNodes(target), []).sort(_libDom_helpers2['default'].sortByDOMPosition).map(function (item) {
-	    return item.instance;
-	  }));
-	}
-
-	/**
-	 * _onKeyDown: The keydown event callback
-	 *
-	 * @access private
-	 * @param {object} event The keydown event object
-	 * @param {number} event.which The key code (which) received from the keydown event
-	 */
-
-	function _onKeyDown(event) {
-	  var forceConsider = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-
-	  if (forceConsider || _shouldConsider(event)) {
-	    var _ref2 = _store2['default'].findBindingForEvent(event) || {};
-
-	    var fn = _ref2.fn;
-	    var instance = _ref2.instance;
-
-	    if (fn) {
-	      fn.call(instance, event);
-	      return true;
-	    }
-	  }
-	  return false;
-	}
-
-	/**
-	 * _shouldConsider: Conditions for proceeding with key event handling
-	 *
-	 * @access private
-	 * @param {object} event The keydown event object
-	 * @param {object} event.target The node origin of the event
-	 * @param {string} event.target.tagName The name of the element tag
-	 * @param {number} event.target.which The key pressed
-	 * @return {boolean} Whether to continue procesing the keydown event
-	 */
-
-	function _shouldConsider(_ref3) {
-	  var ctrlKey = _ref3.ctrlKey;
-	  var tagName = _ref3.target.tagName;
-
-	  return ! ~['INPUT', 'SELECT', 'TEXTAREA'].indexOf(tagName) || ctrlKey;
-	}
-
-	/**
-	 * public
-	 *
-	 */
-
-	/**
-	 * onMount
-	 *
-	 * @access public
-	 */
-	function onMount(instance) {
-	  // have to bump this to next event loop because component mounting routinely
-	  // preceeds the dom click event that triggered the mount (wtf?)
-	  setTimeout(function () {
-	    return _store2['default'].activate(instance);
-	  }, 0);
-	  _libListeners2['default'].bindKeys(_onKeyDown);
-	  _libListeners2['default'].bindClicks(_onClick);
-	  _libDom_helpers2['default'].bindFocusables(instance, _store2['default'].activate);
-	}
-
-	/**
-	 * onUnmount
-	 *
-	 * @access public
-	 */
-	function onUnmount(instance) {
-	  _store2['default'].deleteInstance(instance);
-	  if (_store2['default'].isEmpty()) {
-	    _libListeners2['default'].unbindClicks(_onClick);
-	    _libListeners2['default'].unbindKeys(_onKeyDown);
-	  }
-	}
-
-	exports.onMount = onMount;
-	exports.onUnmount = onUnmount;
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * @module domHelpers
-	 *
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var focusableSelector = 'a[href], button, input, object, select, textarea, [tabindex]';
-
-	/**
-	 * bindFocusables: Find any focusable child elements of the component instance and
-	 * add an onFocus handler to focus our keydown handlers on the parent component
-	 * when user keys applies focus to the element.
-	 *
-	 * NOTE: One limitation of this right now is that if you tab out of the
-	 * component, _focusedInstance will still be set until next click or mount or
-	 * controlled focus.
-	 *
-	 * @access public
-	 * @param {object} instance The key-bound component instance
-	 * @param {callback} activateOnFocus The fn to fire when element is focused
-	 */
-	function bindFocusables(instance, activateOnFocus) {
-	  if (document.querySelectorAll) {
-	    var node = _reactDom2['default'].findDOMNode(instance);
-	    if (node) {
-	      var focusables = node.querySelectorAll(focusableSelector);
-	      if (focusables.length) {
-	        var onFocus = function onFocus(element) {
-	          var onFocusPrev = element.onfocus;
-	          return function (event) {
-	            activateOnFocus(instance);
-	            if (onFocusPrev) onFocusPrev.call(element, event);
-	          };
-	        };
-
-	        var _arr = [].concat(_toConsumableArray(focusables));
-
-	        for (var _i = 0; _i < _arr.length; _i++) {
-	          var element = _arr[_i];
-	          element.onfocus = onFocus(element);
+	exports.Mixin = function HotkeyMixin(handlerName) {
+	    return {
+	        componentDidMount: function() {
+	            var handler = this[handlerName];
+	            handlers.push(handler);
+	        },
+	        componentWillUnmount: function() {
+	            var handler = this[handlerName];
+	            var index = handlers.indexOf(handler);
+	            handlers.splice(index, 1);
 	        }
-	      }
-	    }
-	  }
-	}
+	    };
+	};
 
-	/**
-	 * findContainerNodes: Called by our click handler to find instances with nodes
-	 * that are equal to or that contain the click target. Any that pass this test
-	 * will be recipients of the next keydown event.
-	 *
-	 * @access public
-	 * @param {object} target The click event.target DOM element
-	 * @return {function} Reducer function
-	 */
-	function findContainerNodes(target) {
-	  return function (memo, instance) {
+
+	// Create and dispatch an event object using React's object pool
+	// Cribbed from SimpleEventPlugin and EventPluginHub
+	function handle(nativeEvent) {
+	    var event = SyntheticKeyboardEvent.getPooled({}, 'hotkey', nativeEvent);
 	    try {
-	      var node = _reactDom2['default'].findDOMNode(instance);
-	      if (node && (node === target || node.contains(target))) {
-	        memo.push({ instance: instance, node: node });
-	      }
+	        dispatchEvent(event, handlers);
 	    } finally {
-	      return memo;
+	        if (!event.isPersistent()) {
+	            event.constructor.release(event);
+	        }
 	    }
-	  };
+	}
+	// Dispatch the event, in order, to all interested listeners
+	// The most recently mounted component is the first to receive the event
+	// Cribbed from a combination of SimpleEventPlugin and EventPluginUtils
+	function dispatchEvent(event, handlers) {
+	    for (var i = (handlers.length - 1); i >= 0; i--) {
+	        if (event.isPropagationStopped()) {
+	            break;
+	        }
+	        var returnValue = handlers[i](event);
+	        if (returnValue === false) {
+	            event.stopPropagation();
+	            event.preventDefault();
+	        }
+	    }
 	}
 
-	/**
-	 * sortByDOMPosition: Called by our click handler to sort a list of instances
-	 * according to least -> most nested. This is so that if multiple keybound
-	 * instances have nodes that are ancestors of the click target, they will be
-	 * sorted to let the instance closest to the click target get first dibs on the
-	 * next key down event.
-	 */
-	function sortByDOMPosition(a, b) {
-	  return a.node.compareDocumentPosition(b.node) === 10 ? 1 : -1;
-	}
-
-	exports['default'] = { bindFocusables: bindFocusables, findContainerNodes: findContainerNodes, sortByDOMPosition: sortByDOMPosition };
-	module.exports = exports['default'];
 
 /***/ },
-/* 186 */
+/* 190 */
 /***/ function(module, exports) {
 
-	/**
-	 * @module Listeners
-	 *
-	 */
+	'use strict'
 
-	// flag for whether click listener has been bound to document
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	var _clicksBound = false;
-
-	// flag for whether keydown listener has been bound to document
-	var _keysBound = false;
-
-	var Listeners = {
-	  /**
-	   * _bindKeys
-	   *
-	   * @access public
-	   */
-	  bindKeys: function bindKeys(callback) {
-	    if (!_keysBound) {
-	      document.addEventListener('keydown', callback);
-	      _keysBound = true;
-	    }
-	  },
-
-	  /**
-	   * unbindKeys
-	   *
-	   * @access public
-	   */
-	  unbindKeys: function unbindKeys(callback) {
-	    if (_keysBound) {
-	      document.removeEventListener('keydown', callback);
-	      _keysBound = false;
-	    }
-	  },
-
-	  /**
-	   * bindClicks
-	   *
-	   * @access public
-	   */
-	  bindClicks: function bindClicks(callback) {
-	    if (!_clicksBound) {
-	      document.addEventListener('click', callback);
-	      _clicksBound = true;
-	    }
-	  },
-
-	  /**
-	   * unbindClicks
-	   *
-	   * @access public
-	   */
-	  unbindClicks: function unbindClicks(callback) {
-	    if (_clicksBound) {
-	      document.removeEventListener('click', callback);
-	      _clicksBound = false;
-	    }
+	function listen(target, eventType, callback) {
+	  if (target == null) {
+	    throw new TypeError('target must be provided')
 	  }
-	};
-
-	exports['default'] = Listeners;
-	module.exports = exports['default'];
-
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * @module methodWrapper
-	 *
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _store = __webpack_require__(179);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	var _event_handlers = __webpack_require__(184);
-
-	/**
-	 * _isReactKeyDown
-	 *
-	 * @access private
-	 * @param {object} event The possibly synthetic event passed as an argument with
-	 * the method invocation.
-	 * @return {boolean}
-	 */
-	function _isReactKeyDown(event) {
-	  return event && typeof event === 'object' && event.nativeEvent instanceof KeyboardEvent && event.type === 'keydown';
-	}
-
-	/**
-	 * methodWrapper
-	 *
-	 * @access public
-	 * @param {object} args All arguments necessary for wrapping method
-	 * @param {object} args.target The decorated class
-	 * @param {object} args.descriptor Method descriptor
-	 * @param {array} args.keys The array of keys bound to the given method
-	 * @return {object} The method descriptor
-	 */
-	function methodWrapper(_ref) {
-	  var target = _ref.target;
-	  var descriptor = _ref.descriptor;
-	  var keys = _ref.keys;
-
-	  var fn = descriptor.value;
-
-	  // if we haven't already created a binding for this class (via another
-	  // decorated method), wrap these lifecycle methods.
-	  if (!_store2['default'].getBinding(target)) {
-	    (function () {
-	      var componentDidMount = target.componentDidMount;
-	      var componentWillUnmount = target.componentWillUnmount;
-
-	      target.componentDidMount = function () {
-	        (0, _event_handlers.onMount)(this);
-	        if (componentDidMount) return componentDidMount.call(this);
-	      };
-
-	      target.componentWillUnmount = function () {
-	        (0, _event_handlers.onUnmount)(this);
-	        if (componentWillUnmount) return componentWillUnmount.call(this);
-	      };
-	    })();
+	  if (Object.prototype.toString.call(eventType) !== '[object String]') {
+	    throw new TypeError('eventType must be a string')
 	  }
 
-	  // add this binding of keys and method to the target's bindings
-	  _store2['default'].setBinding({ keys: keys, target: target, fn: fn });
-
-	  descriptor.value = function () {
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    var maybeEvent = args[0];
-
-	    if (_isReactKeyDown(maybeEvent)) {
-	      // proxy method in order to use @keydown as filter for keydown events coming
-	      // from an actual onKeyDown binding (as identified by react's addition of
-	      // 'nativeEvent' + type === 'keydown')
-	      (0, _event_handlers._onKeyDown)(maybeEvent, true);
-	    } else if (!maybeEvent || !(maybeEvent instanceof KeyboardEvent) || maybeEvent.type !== 'keydown') {
-	      // if our first argument is a keydown event it is being handled by our
-	      // binding system. if it's anything else, just pass through.
-	      fn.call.apply(fn, [this].concat(args));
-	    }
-	  };
-
-	  return descriptor;
-	}
-
-	exports['default'] = methodWrapper;
-	module.exports = exports['default'];
-
-/***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * @module methodWrapperScoped
-	 *
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _libMatch_keys = __webpack_require__(181);
-
-	var _libMatch_keys2 = _interopRequireDefault(_libMatch_keys);
-
-	var _libParse_keys = __webpack_require__(182);
-
-	var _libParse_keys2 = _interopRequireDefault(_libParse_keys);
-
-	/**
-	 * _shouldTrigger
-	 *
-	 * @access private
-	 * @param {object} thisProps Exsting props from the wrapped component
-	 * @param {object} thisProps.keydown The namespaced state from the higher-order
-	 * component (class_decorator)
-	 * @param {object} nextProps The incoming props from the wrapped component
-	 * @param {object} nextProps.keydown The namescaped state from the higher-order
-	 * component (class_decorator)
-	 * @param {array} keys The keys bound to the decorated method
-	 * @return {boolean} Whether all tests have passed
-	 */
-	function _shouldTrigger(_ref, keydownNext) {
-	  var keydownThis = _ref.keydown;
-
-	  return keydownNext && keydownNext.event && !keydownThis.event;
-	}
-
-	/**
-	 * methodWrapperScoped
-	 *
-	 * @access public
-	 * @param {object} args All args necessary for decorating the method
-	 * @param {object} args.target The decorated method's class object
-	 * @param {object} args.descriptor The method's descriptor object
-	 * @param {array} args.keys The key codes bound to the decorated method
-	 * @return {object} The method's descriptor object
-	 */
-	function methodWrapperScoped(_ref2) {
-	  var target = _ref2.target;
-	  var descriptor = _ref2.descriptor;
-	  var keys = _ref2.keys;
-	  var componentWillReceiveProps = target.componentWillReceiveProps;
-
-	  var fn = descriptor.value;
-	  if (!keys) {
-	    console.warn(fn + ': keydownScoped requires one or more keys');
-	  } else {
-	    (function () {
-	      var keySets = (0, _libParse_keys2['default'])(keys);
-
-	      // wrap the component's lifecycle method to intercept key codes coming down
-	      // from the wrapped/scoped component up the view hierarchy. if new keydown
-	      // event has arrived and the key codes match what was specified in the
-	      // decorator, call the wrapped method.
-	      target.componentWillReceiveProps = function (nextProps) {
-	        var keydown = nextProps.keydown;
-
-	        if (_shouldTrigger(this.props, keydown)) {
-	          if (keySets.some(function (keySet) {
-	            return (0, _libMatch_keys2['default'])({ keySet: keySet, event: keydown.event });
-	          })) {
-	            fn.call(this, keydown.event);
-	          }
-	        }
-
-	        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	          args[_key - 1] = arguments[_key];
-	        }
-
-	        if (componentWillReceiveProps) return componentWillReceiveProps.call.apply(componentWillReceiveProps, [this, nextProps].concat(args));
-	      };
-	    })();
+	  var eventTypes = eventType.split(' ').filter(Boolean)
+	  if (eventTypes.length === 0) {
+	    throw new Error('eventType must not be blank')
 	  }
 
-	  return descriptor;
+	  if (target.addEventListener) {
+	    eventTypes.forEach(function(eventType) {
+	      target.addEventListener(eventType, callback, false)
+	    })
+	    return {
+	      remove: function() {
+	        eventTypes.forEach(function(eventType) {
+	          target.removeEventListener(eventType, callback, false)
+	        })
+	      }
+	    }
+	  }
+	  else if (target.attachEvent) {
+	    eventTypes.forEach(function(eventType) {
+	      target.attachEvent('on' + eventType, callback)
+	    })
+	    return {
+	      remove: function() {
+	        eventTypes.forEach(function(eventType) {
+	          target.detachEvent('on' + eventType, callback)
+	        })
+	      }
+	    }
+	  }
+	  else {
+	    throw new TypeError('target must have addEventListener or attachEvent')
+	  }
 	}
 
-	exports['default'] = methodWrapperScoped;
-	module.exports = exports['default'];
+	module.exports = listen
+
 
 /***/ }
 /******/ ]);

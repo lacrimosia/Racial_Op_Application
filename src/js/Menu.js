@@ -35,7 +35,7 @@ class Menu extends React.Component {
     }
 
     render() {
-        return (<div >  // start div
+        return (<div >
         <div className="header">
         	<div className="titles"><h5>{this.title} - Interactive</h5></div>
         	<div className="menu">

@@ -1,19 +1,52 @@
 'use strict'
 
 import React from 'react';
-import keydown, { Keys } from 'react-keydown';
 const $ = require('jquery');
-
+import hotkey from 'react-hotkey';
+hotkey.activate();
 
 // Bottom Navigation Component for changing the picture & text
 class Bottom extends React.Component {
     constructor(props) {
         super(props);
         this.list = this.props.list;  // content list from main.js
+        this.hotkeyHandler = this.keyboardShortcuts.bind(this);
+        this.count = 0;
     }
 
+     keyboardShortcuts(e) {
+     	e.preventDefault();
+        if(e.keyCode == 39){   	
+        // RIGHT ARROW KEY
+        //	this.tabIndex = $('.buttons:focus').attr('tabindex'); 
+        	if(this.count < this.list.length-1){
+        		++this.count;
+        		console.log('the count', this.count);
+        		this.getInfo(this.count);
+        	}else{
+        		this.count = -1;
+        	}
+        		
+        }
+        if(e.keyCode == 37){   
+        	// LEFT ARROW KEY	
+        	if(this.count > 0){
+        		--this.count;
+        		console.log('the count', this.count);
+        		this.getInfo(this.count);
+        	}else{
+        		this.count = -1;
+        	}
+        		
+        }
+    }
+ 
     componentDidMount() {
-          //  $(document.body).on('keydown', this.getInfo);
+        hotkey.addHandler(this.hotkeyHandler);
+    }
+ 
+    componentWillUnmount() {
+        hotkey.removeHandler(this.hotkeyHandler);
     }
 
     getInfo(index){
@@ -31,8 +64,6 @@ class Bottom extends React.Component {
 
     	$('.pictures').html("<img class='animated fadeIn' src='images/"+this.list[index].picture+"'/>");
     	$('.textPortion').text(this.list[index].text); 
-
-
     	return index;
     }
 
@@ -42,12 +73,12 @@ class Bottom extends React.Component {
         	<div className="textArea"><div className="textPortion animated fadeIn">{this.list[0].text}</div></div>
        {
         this.props.list.map(function (b) { 
-        if(b.id==0){
+        if(b.id == 0){
         	return (
            <img key={b.id} src={'images/'+(b.id+1)+'-h.png'} id={(b.id+1)} tabIndex={b.id} className="buttons" onClick={this.getInfo.bind(this, b.id)}/>
           );
-        }    	
-           return (
+        }
+        return (
            <img key={b.id} src={'images/'+(b.id+1)+'.png'} id={(b.id+1)} tabIndex={b.id} className="buttons" onClick={this.getInfo.bind(this, b.id)}/>
           );
         }.bind(this))
