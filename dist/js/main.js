@@ -30676,33 +30676,21 @@
 
 	        _this.list = _this.props.list; // content list from main.js
 	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
-	        _this.count = 0;
 	        return _this;
 	    }
 
 	    _createClass(Bottom, [{
 	        key: 'keyboardShortcuts',
 	        value: function keyboardShortcuts(e) {
-	            e.preventDefault();
-	            if (e.keyCode == 39) {
-	                // RIGHT ARROW KEY
-	                //	this.tabIndex = $('.buttons:focus').attr('tabindex');
-	                if (this.count < this.list.length - 1) {
-	                    ++this.count;
+	            if (e.keyCode == 9) {
+	                // TAB KEY
+	                e.preventDefault();
+	                this.count = parseInt($('.buttons:focus').attr('tabindex'));
+	                if (this.count <= this.list.length) {
 	                    console.log('the count', this.count);
-	                    this.getInfo(this.count);
+	                    this.getInfo(this.count - 1);
 	                } else {
-	                    this.count = -1;
-	                }
-	            }
-	            if (e.keyCode == 37) {
-	                // LEFT ARROW KEY	
-	                if (this.count > 0) {
-	                    --this.count;
-	                    console.log('the count', this.count);
-	                    this.getInfo(this.count);
-	                } else {
-	                    this.count = -1;
+	                    this.count = parseInt($('.buttons:focus').attr('tabindex', 1));
 	                }
 	            }
 	        }
@@ -30760,10 +30748,7 @@
 	                    )
 	                ),
 	                this.props.list.map(function (b) {
-	                    if (b.id == 0) {
-	                        return _react2.default.createElement('img', { key: b.id, src: 'images/' + (b.id + 1) + '-h.png', id: b.id + 1, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
-	                    }
-	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
+	                    return _react2.default.createElement('img', { key: b.id, src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons', onClick: this.getInfo.bind(this, b.id) });
 	                }.bind(this))
 	            );
 	        }
