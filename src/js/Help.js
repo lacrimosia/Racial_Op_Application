@@ -7,6 +7,7 @@ const $ = require('jquery');
 class Help extends React.Component{
     constructor(props) {
         super(props);
+        console.log(React.PropTypes);
     }
 
     Start(){
@@ -17,7 +18,7 @@ class Help extends React.Component{
         return (<div className="help_Menu">
         <div className="keyboard_Div">
             <h1>Internalized Oppression</h1>
-            <p>Press the <b className="keyButtons">TAB</b> to navigate each slide or press the keyboard shortcuts.</p>
+            <p>Press the <b className="keyButtons">TAB</b> to navigate each slide or click the numbers.</p>
             <ul>
                 <li>
                 <b>Keyboard Shortcuts</b></li>

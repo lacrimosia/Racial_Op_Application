@@ -31102,7 +31102,10 @@
 	    function Help(props) {
 	        _classCallCheck(this, Help);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Help).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Help).call(this, props));
+
+	        console.log(_react2.default.PropTypes);
+	        return _this;
 	    }
 
 	    _createClass(Help, [{
@@ -31133,7 +31136,7 @@
 	                            { className: 'keyButtons' },
 	                            'TAB'
 	                        ),
-	                        ' to navigate each slide or press the keyboard shortcuts.'
+	                        ' to navigate each slide or click the numbers.'
 	                    ),
 	                    _react2.default.createElement(
 	                        'ul',
