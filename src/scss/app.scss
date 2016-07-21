@@ -3,6 +3,7 @@ $backgroundColor: #ffffff;
 $appImage: url('../images/back.jpg') no-repeat;
 $color: #ffffff;
 $textColor: #1B1F4E;
+$headerColor: #E6D7A7;
 $fonts: sans-serif, verdana !important;
 $margin : 0px;
 
@@ -47,7 +48,7 @@ body{
 
 .pictures{
     @include wh(233px, 308px);
-    @include Pos(relative, 0px, 0px, 0);
+    @include Pos(relative, 20px, 0px, 0);
     overflow: hidden;
 
     img{
@@ -222,7 +223,7 @@ body{
 .header {
   // background: rgb(34, 38, 65);
     font-family: $fonts;
-    color: #f1f1f1;
+    color: $headerColor;
     @include Pos(relative, 0px, 0px, 60);
     @include wh(100%, 31px);
 }
@@ -241,7 +242,7 @@ body{
 
 .menu {
     float: right;
-    padding: 5px 45px 0px 0px;
+    padding: 5px 10px 0px 0px;
 }
 
 span{
@@ -277,7 +278,7 @@ span{
     /* background: #D4001D; */
     border: none;
     margin-right: 1px;
-    color: $color;
+    color: $headerColor;
     display: inline;
     padding: 5px 5px 7px 5px;
     cursor: pointer;

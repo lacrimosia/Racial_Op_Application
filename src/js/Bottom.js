@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import React from 'react';
 const $ = require('jquery');
@@ -20,7 +20,7 @@ class Bottom extends React.Component {
         e.preventDefault();
         this.count = parseInt($('.buttons:focus').attr('tabindex'));
         	if(this.count <= this.list.length){
-        		console.log('the count', this.count-1);
+        	//	console.log('the count', this.count-1);
         		this.getInfo(this.count-1);
         	}else{
         		$('#1').focus();

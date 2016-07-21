@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 const data = require('../data/data.json');
 const $ = require('jquery');
@@ -9,7 +11,7 @@ class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.title = data.title;
-        this.instructions = data.instructions;
+        this.instructions = data.instructions;  
         this.hotkeyHandler = this.keyboardShortcuts.bind(this);
     }
 
@@ -43,7 +45,6 @@ class Menu extends React.Component {
     render() {
         return (<div >
         <div className="header">
-        	<div className="titles"><h5>{this.title} - Interactive</h5></div>
         	<div className="menu">
         		<button className="reload btn" title="Reload" onClick={this.reload.bind(this)}><i className="fa fa-refresh"></i> Reload</button>
         		<button className="help btn" title="Help Menu" onClick={this.help.bind(this)}><i className="fa fa-question-circle"></i> Help</button>

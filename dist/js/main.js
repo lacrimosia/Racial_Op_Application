@@ -62,13 +62,13 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Bottom = __webpack_require__(171);
+	var _Bottom = __webpack_require__(173);
 
 	var _Bottom2 = _interopRequireDefault(_Bottom);
 
-	__webpack_require__(185);
+	__webpack_require__(176);
 
-	var _Help = __webpack_require__(188);
+	var _Help = __webpack_require__(179);
 
 	var _Help2 = _interopRequireDefault(_Help);
 
@@ -80,7 +80,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var data = __webpack_require__(169);
+	var data = __webpack_require__(171);
 
 	var App = function (_React$Component) {
 	    _inherits(App, _React$Component);
@@ -20421,7 +20421,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactHotkey = __webpack_require__(189);
+	var _reactHotkey = __webpack_require__(169);
 
 	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
 
@@ -20433,8 +20433,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var data = __webpack_require__(169);
-	var $ = __webpack_require__(170);
+	var data = __webpack_require__(171);
+	var $ = __webpack_require__(172);
 	var off = false;
 
 	_reactHotkey2.default.activate();
@@ -20496,16 +20496,6 @@
 	                    { className: 'header' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'titles' },
-	                        _react2.default.createElement(
-	                            'h5',
-	                            null,
-	                            this.title,
-	                            ' - Interactive'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
 	                        { className: 'menu' },
 	                        _react2.default.createElement(
 	                            'button',
@@ -20534,6 +20524,160 @@
 
 /***/ },
 /* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var listen = __webpack_require__(170);
+	var SyntheticKeyboardEvent = __webpack_require__(153);
+
+	var documentListener = {};
+	/**
+	 * Enable the global event listener. Is idempotent.
+	 */
+	exports.activate = function(event) {
+	    if (!event) {
+	        event = 'keyup';
+	    }
+	    if (!documentListener[event]) {
+	        documentListener[event] = listen(document, event, handle);
+	    }
+	    return exports;
+	};
+	/**
+	 * Disable the global event listener. Is idempotent.
+	 */
+	exports.disable = function(event) {
+	    if (!event) {
+	        event = 'keyup';
+	    }
+	    if (documentListener[event]) {
+	        documentListener[event].remove();
+	        documentListener[event] = null;
+	    }
+	};
+
+	// Container for all the handlers
+	var handlers = [];
+
+	/**
+	 * Adds the function `handler` to the array of handlers invoked
+	 * upon activated keyboard events.
+	 */
+	exports.addHandler = function(handler) {
+	    handlers.push(handler);
+	};
+
+	/**
+	 * Removes the function `handler`, which was previously added with
+	 * `addHandler`, from the array of keyboard event handlers.
+	 */
+	exports.removeHandler = function(handler) {
+	    var index = handlers.indexOf(handler);
+	    if (index >= 0)
+	        handlers.splice(index, 1);
+	};
+
+
+	/**
+	 * Mixin that calls `handlerName` on your component if it is mounted and a
+	 * key event has bubbled up to the document
+	 */
+	exports.Mixin = function HotkeyMixin(handlerName) {
+	    return {
+	        componentDidMount: function() {
+	            var handler = this[handlerName];
+	            handlers.push(handler);
+	        },
+	        componentWillUnmount: function() {
+	            var handler = this[handlerName];
+	            var index = handlers.indexOf(handler);
+	            handlers.splice(index, 1);
+	        }
+	    };
+	};
+
+
+	// Create and dispatch an event object using React's object pool
+	// Cribbed from SimpleEventPlugin and EventPluginHub
+	function handle(nativeEvent) {
+	    var event = SyntheticKeyboardEvent.getPooled({}, 'hotkey', nativeEvent);
+	    try {
+	        dispatchEvent(event, handlers);
+	    } finally {
+	        if (!event.isPersistent()) {
+	            event.constructor.release(event);
+	        }
+	    }
+	}
+	// Dispatch the event, in order, to all interested listeners
+	// The most recently mounted component is the first to receive the event
+	// Cribbed from a combination of SimpleEventPlugin and EventPluginUtils
+	function dispatchEvent(event, handlers) {
+	    for (var i = (handlers.length - 1); i >= 0; i--) {
+	        if (event.isPropagationStopped()) {
+	            break;
+	        }
+	        var returnValue = handlers[i](event);
+	        if (returnValue === false) {
+	            event.stopPropagation();
+	            event.preventDefault();
+	        }
+	    }
+	}
+
+
+/***/ },
+/* 170 */
+/***/ function(module, exports) {
+
+	'use strict'
+
+	function listen(target, eventType, callback) {
+	  if (target == null) {
+	    throw new TypeError('target must be provided')
+	  }
+	  if (Object.prototype.toString.call(eventType) !== '[object String]') {
+	    throw new TypeError('eventType must be a string')
+	  }
+
+	  var eventTypes = eventType.split(' ').filter(Boolean)
+	  if (eventTypes.length === 0) {
+	    throw new Error('eventType must not be blank')
+	  }
+
+	  if (target.addEventListener) {
+	    eventTypes.forEach(function(eventType) {
+	      target.addEventListener(eventType, callback, false)
+	    })
+	    return {
+	      remove: function() {
+	        eventTypes.forEach(function(eventType) {
+	          target.removeEventListener(eventType, callback, false)
+	        })
+	      }
+	    }
+	  }
+	  else if (target.attachEvent) {
+	    eventTypes.forEach(function(eventType) {
+	      target.attachEvent('on' + eventType, callback)
+	    })
+	    return {
+	      remove: function() {
+	        eventTypes.forEach(function(eventType) {
+	          target.detachEvent('on' + eventType, callback)
+	        })
+	      }
+	    }
+	  }
+	  else {
+	    throw new TypeError('target must have addEventListener or attachEvent')
+	  }
+	}
+
+	module.exports = listen
+
+
+/***/ },
+/* 171 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -20600,7 +20744,7 @@
 	};
 
 /***/ },
-/* 170 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -30643,7 +30787,7 @@
 
 
 /***/ },
-/* 171 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30658,11 +30802,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactHotkey = __webpack_require__(189);
+	var _reactHotkey = __webpack_require__(169);
 
 	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
 
-	var _reactNativeListener = __webpack_require__(191);
+	var _reactNativeListener = __webpack_require__(174);
 
 	var _reactNativeListener2 = _interopRequireDefault(_reactNativeListener);
 
@@ -30674,7 +30818,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var $ = __webpack_require__(170);
+	var $ = __webpack_require__(172);
 
 	_reactHotkey2.default.activate();
 
@@ -30701,7 +30845,7 @@
 	                e.preventDefault();
 	                this.count = parseInt($('.buttons:focus').attr('tabindex'));
 	                if (this.count <= this.list.length) {
-	                    console.log('the count', this.count - 1);
+	                    //	console.log('the count', this.count-1);
 	                    this.getInfo(this.count - 1);
 	                } else {
 	                    $('#1').focus();
@@ -30786,234 +30930,7 @@
 	exports.default = Bottom;
 
 /***/ },
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 186 */,
-/* 187 */,
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Help = function (_React$Component) {
-	    _inherits(Help, _React$Component);
-
-	    function Help(props) {
-	        _classCallCheck(this, Help);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Help).call(this, props));
-
-	        _this.displayName = 'Help';
-	        return _this;
-	    }
-
-	    _createClass(Help, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                'Help'
-	            );
-	        }
-	    }]);
-
-	    return Help;
-	}(_react2.default.Component);
-
-	exports.default = Help;
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var listen = __webpack_require__(190);
-	var SyntheticKeyboardEvent = __webpack_require__(153);
-
-	var documentListener = {};
-	/**
-	 * Enable the global event listener. Is idempotent.
-	 */
-	exports.activate = function(event) {
-	    if (!event) {
-	        event = 'keyup';
-	    }
-	    if (!documentListener[event]) {
-	        documentListener[event] = listen(document, event, handle);
-	    }
-	    return exports;
-	};
-	/**
-	 * Disable the global event listener. Is idempotent.
-	 */
-	exports.disable = function(event) {
-	    if (!event) {
-	        event = 'keyup';
-	    }
-	    if (documentListener[event]) {
-	        documentListener[event].remove();
-	        documentListener[event] = null;
-	    }
-	};
-
-	// Container for all the handlers
-	var handlers = [];
-
-	/**
-	 * Adds the function `handler` to the array of handlers invoked
-	 * upon activated keyboard events.
-	 */
-	exports.addHandler = function(handler) {
-	    handlers.push(handler);
-	};
-
-	/**
-	 * Removes the function `handler`, which was previously added with
-	 * `addHandler`, from the array of keyboard event handlers.
-	 */
-	exports.removeHandler = function(handler) {
-	    var index = handlers.indexOf(handler);
-	    if (index >= 0)
-	        handlers.splice(index, 1);
-	};
-
-
-	/**
-	 * Mixin that calls `handlerName` on your component if it is mounted and a
-	 * key event has bubbled up to the document
-	 */
-	exports.Mixin = function HotkeyMixin(handlerName) {
-	    return {
-	        componentDidMount: function() {
-	            var handler = this[handlerName];
-	            handlers.push(handler);
-	        },
-	        componentWillUnmount: function() {
-	            var handler = this[handlerName];
-	            var index = handlers.indexOf(handler);
-	            handlers.splice(index, 1);
-	        }
-	    };
-	};
-
-
-	// Create and dispatch an event object using React's object pool
-	// Cribbed from SimpleEventPlugin and EventPluginHub
-	function handle(nativeEvent) {
-	    var event = SyntheticKeyboardEvent.getPooled({}, 'hotkey', nativeEvent);
-	    try {
-	        dispatchEvent(event, handlers);
-	    } finally {
-	        if (!event.isPersistent()) {
-	            event.constructor.release(event);
-	        }
-	    }
-	}
-	// Dispatch the event, in order, to all interested listeners
-	// The most recently mounted component is the first to receive the event
-	// Cribbed from a combination of SimpleEventPlugin and EventPluginUtils
-	function dispatchEvent(event, handlers) {
-	    for (var i = (handlers.length - 1); i >= 0; i--) {
-	        if (event.isPropagationStopped()) {
-	            break;
-	        }
-	        var returnValue = handlers[i](event);
-	        if (returnValue === false) {
-	            event.stopPropagation();
-	            event.preventDefault();
-	        }
-	    }
-	}
-
-
-/***/ },
-/* 190 */
-/***/ function(module, exports) {
-
-	'use strict'
-
-	function listen(target, eventType, callback) {
-	  if (target == null) {
-	    throw new TypeError('target must be provided')
-	  }
-	  if (Object.prototype.toString.call(eventType) !== '[object String]') {
-	    throw new TypeError('eventType must be a string')
-	  }
-
-	  var eventTypes = eventType.split(' ').filter(Boolean)
-	  if (eventTypes.length === 0) {
-	    throw new Error('eventType must not be blank')
-	  }
-
-	  if (target.addEventListener) {
-	    eventTypes.forEach(function(eventType) {
-	      target.addEventListener(eventType, callback, false)
-	    })
-	    return {
-	      remove: function() {
-	        eventTypes.forEach(function(eventType) {
-	          target.removeEventListener(eventType, callback, false)
-	        })
-	      }
-	    }
-	  }
-	  else if (target.attachEvent) {
-	    eventTypes.forEach(function(eventType) {
-	      target.attachEvent('on' + eventType, callback)
-	    })
-	    return {
-	      remove: function() {
-	        eventTypes.forEach(function(eventType) {
-	          target.detachEvent('on' + eventType, callback)
-	        })
-	      }
-	    }
-	  }
-	  else {
-	    throw new TypeError('target must have addEventListener or attachEvent')
-	  }
-	}
-
-	module.exports = listen
-
-
-/***/ },
-/* 191 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31022,7 +30939,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _NativeListener = __webpack_require__(192);
+	var _NativeListener = __webpack_require__(175);
 
 	var _NativeListener2 = _interopRequireDefault(_NativeListener);
 
@@ -31030,7 +30947,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 192 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31122,6 +31039,66 @@
 
 	exports['default'] = NativeListener;
 	module.exports = exports['default'];
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 177 */,
+/* 178 */,
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Help = function (_React$Component) {
+	    _inherits(Help, _React$Component);
+
+	    function Help(props) {
+	        _classCallCheck(this, Help);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Help).call(this, props));
+
+	        _this.displayName = 'Help';
+	        return _this;
+	    }
+
+	    _createClass(Help, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                'Help'
+	            );
+	        }
+	    }]);
+
+	    return Help;
+	}(_react2.default.Component);
+
+	exports.default = Help;
 
 /***/ }
 /******/ ]);
