@@ -24,7 +24,7 @@ class Help extends React.Component{
                 <li>Start - <b className="keyButtons">S</b></li>
                 <li>Reload - <b className="keyButtons">R</b></li>
                 <li>Information - <b className="keyButtons">TAB</b></li>
-                <li>Help - <b className="keyButtons">H</b></li>
+                <li>Help - <b className="keyButtons">H</b> or <b className="keyButtons">?</b></li>
             </ul>
         </div>
         <button className="help_Button" onClick={this.Start.bind(this)}>

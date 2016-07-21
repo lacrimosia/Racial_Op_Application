@@ -31185,6 +31185,12 @@
 	                                'b',
 	                                { className: 'keyButtons' },
 	                                'H'
+	                            ),
+	                            ' or ',
+	                            _react2.default.createElement(
+	                                'b',
+	                                { className: 'keyButtons' },
+	                                '?'
 	                            )
 	                        )
 	                    )
