@@ -1,6 +1,6 @@
 <snippet>
-  <content><![CDATA[
-# ${1:Racial Oppression}
+  <content>
+## Racial Oppression
 Racial Oppression for WMST 113.
 
 ## Installation
