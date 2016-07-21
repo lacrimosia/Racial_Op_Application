@@ -3,15 +3,13 @@
 import React from 'react';
 const data = require('../data/data.json');
 const $ = require('jquery');
-let off = false;
 import hotkey from 'react-hotkey';
 hotkey.activate();
 
 class Menu extends React.Component {
     constructor(props) {
         super(props);
-        this.title = data.title;
-        this.instructions = data.instructions;  
+        this.show = false;
         this.hotkeyHandler = this.keyboardShortcuts.bind(this);
     }
 

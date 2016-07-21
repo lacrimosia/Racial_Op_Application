@@ -55,7 +55,7 @@ class Bottom extends React.Component {
     }
 
     render() {
-       return (<div>
+       return (<div className="bottom">
         	<div className="placeArea"><div className="pictures"><img className="animated fadeIn" src={'images/'+this.list[0].picture}/></div></div>
         	<div className="textArea"><div className="textPortion animated fadeIn">{this.list[0].text}</div></div>
        {

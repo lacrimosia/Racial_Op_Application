@@ -71,10 +71,9 @@ body{
     }
 }
 
-.intro,
 .help_Menu {
-    @include Pos(absolute, 0px, 0px, 100000);
-    @include wh(800px, 701px);
+    @include Pos(relative, -31px, 0px, 100000);
+    @include wh(1024px, 576px);
     /* background: rgba(0, 0, 0, 0.6); */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1b1f4e+21,393f7d+38,aa0ce9+55,d4001d+71,ed5901+85,ef9719+98&0.46+0,0.5+100;wmst2 */
     background: -moz-linear-gradient(top, rgba(27, 31, 78, 0.46) 0%, rgba(27, 31, 78, 0.47) 21%, rgba(57, 63, 125, 0.48) 38%, rgba(170, 12, 233, 0.49) 55%, rgba(212, 0, 29, 0.49) 71%, rgba(237, 89, 1, 0.49) 85%, rgba(239, 151, 25, 0.5) 98%, rgba(239, 151, 25, 0.5) 100%);
@@ -99,8 +98,8 @@ body{
 .help_Button {
     opacity: 1 !important;
     position: relative;
-    @include Pos(relative, -70px, 388px, 0);
-    @include wh(250px, 75px);
+    @include Pos(relative, -30px, 325px, 0);
+    @include wh(400px, 75px);
     /* background: #D4001D; */
     border: none;
     cursor: pointer;
@@ -120,8 +119,8 @@ body{
 }
 
 .keyboard_Div {
-	@include Pos(relative, 165px, 62px, 0);
-    @include wh(650px, 360px);
+	@include Pos(relative, 76px, 125px, 0);
+    @include wh(75%, 400px);
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#383838+0,111111+100 */
     background: rgb(56, 56, 56);
     /* Old browsers */
@@ -141,7 +140,7 @@ body{
     color: $color;
     font-size: 1.3em;
     margin-bottom: 6px;
-    margin-left: 35px;
+    margin-left: 95px;
     }
 
     h1 {
@@ -232,6 +231,10 @@ body{
     @include wh(233px, 308px);
     @include Pos(relative, 67px, 132px, 50);
     background: none;
+}
+
+.bottom{
+   @include Pos(relative, -572px, 0px, 50); 
 }
 
 .titles {

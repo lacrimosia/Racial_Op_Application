@@ -101,6 +101,7 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(_Menu2.default, null),
+	                _react2.default.createElement(_Help2.default, null),
 	                _react2.default.createElement(_Bottom2.default, { list: this.list })
 	            );
 	        }
@@ -20435,7 +20436,6 @@
 
 	var data = __webpack_require__(171);
 	var $ = __webpack_require__(172);
-	var off = false;
 
 	_reactHotkey2.default.activate();
 
@@ -20447,8 +20447,7 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).call(this, props));
 
-	        _this.title = data.title;
-	        _this.instructions = data.instructions;
+	        _this.show = false;
 	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
 	        return _this;
 	    }
@@ -30887,7 +30886,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'bottom' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'placeArea' },
@@ -31064,6 +31063,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactHotkey = __webpack_require__(169);
+
+	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31072,16 +31075,18 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var data = __webpack_require__(171);
+	var $ = __webpack_require__(172);
+
+	_reactHotkey2.default.activate();
+
 	var Help = function (_React$Component) {
 	    _inherits(Help, _React$Component);
 
 	    function Help(props) {
 	        _classCallCheck(this, Help);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Help).call(this, props));
-
-	        _this.displayName = 'Help';
-	        return _this;
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Help).call(this, props));
 	    }
 
 	    _createClass(Help, [{
@@ -31089,8 +31094,86 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                null,
-	                'Help'
+	                { className: 'help_Menu' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'keyboard_Div' },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        null,
+	                        'Internalized Oppression'
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'Press the ',
+	                        _react2.default.createElement(
+	                            'b',
+	                            { className: 'keyButtons' },
+	                            'TAB'
+	                        ),
+	                        ' to navigate each slide or press the keyboard shortcuts.'
+	                    ),
+	                    _react2.default.createElement(
+	                        'ul',
+	                        null,
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                'b',
+	                                null,
+	                                'Keyboard Shortcuts'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            'Start - ',
+	                            _react2.default.createElement(
+	                                'b',
+	                                { className: 'keyButtons' },
+	                                'S'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            'Reload - ',
+	                            _react2.default.createElement(
+	                                'b',
+	                                { className: 'keyButtons' },
+	                                'R'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            'Information - ',
+	                            _react2.default.createElement(
+	                                'b',
+	                                { className: 'keyButtons' },
+	                                'TAB'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            'Help - ',
+	                            _react2.default.createElement(
+	                                'b',
+	                                { className: 'keyButtons' },
+	                                'H'
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { className: 'help_Button' },
+	                    'START ',
+	                    _react2.default.createElement('i', { className: 'fa fa-arrow-right' })
+	                )
 	            );
 	        }
 	    }]);

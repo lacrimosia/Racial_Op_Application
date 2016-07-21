@@ -53,14 +53,13 @@ body {
     overflow: hidden;
     color: #1B1F4E; }
 
-.intro,
 .help_Menu {
-  position: absolute;
-  top: 0px;
+  position: relative;
+  top: -31px;
   left: 0px;
   z-index: 100000;
-  width: 800px;
-  height: 701px;
+  width: 1024px;
+  height: 576px;
   /* background: rgba(0, 0, 0, 0.6); */
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1b1f4e+21,393f7d+38,aa0ce9+55,d4001d+71,ed5901+85,ef9719+98&0.46+0,0.5+100;wmst2 */
   background: -moz-linear-gradient(top, rgba(27, 31, 78, 0.46) 0%, rgba(27, 31, 78, 0.47) 21%, rgba(57, 63, 125, 0.48) 38%, rgba(170, 12, 233, 0.49) 55%, rgba(212, 0, 29, 0.49) 71%, rgba(237, 89, 1, 0.49) 85%, rgba(239, 151, 25, 0.5) 98%, rgba(239, 151, 25, 0.5) 100%);
@@ -88,10 +87,10 @@ body {
   opacity: 1 !important;
   position: relative;
   position: relative;
-  top: -70px;
-  left: 388px;
+  top: -30px;
+  left: 325px;
   z-index: 0;
-  width: 250px;
+  width: 400px;
   height: 75px;
   /* background: #D4001D; */
   border: none;
@@ -112,11 +111,11 @@ body {
 
 .keyboard_Div {
   position: relative;
-  top: 165px;
-  left: 62px;
+  top: 76px;
+  left: 125px;
   z-index: 0;
-  width: 650px;
-  height: 360px;
+  width: 75%;
+  height: 400px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#383838+0,111111+100 */
   background: #383838;
   /* Old browsers */
@@ -135,7 +134,7 @@ body {
     color: #ffffff;
     font-size: 1.3em;
     margin-bottom: 6px;
-    margin-left: 35px; }
+    margin-left: 95px; }
   .keyboard_Div h1 {
     text-align: center;
     color: #ffffff; }
@@ -221,6 +220,12 @@ body {
   left: 132px;
   z-index: 50;
   background: none; }
+
+.bottom {
+  position: relative;
+  top: -572px;
+  left: 0px;
+  z-index: 50; }
 
 .titles {
   float: left;

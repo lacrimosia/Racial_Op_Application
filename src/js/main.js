@@ -17,7 +17,8 @@ class App extends React.Component {
     render() {
         return <div>
                 <Menu />
-                 <Bottom list={this.list} />
+                <Help />
+                <Bottom list={this.list} />
         	   </div>
     }
 }
