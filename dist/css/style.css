@@ -31,7 +31,7 @@ body {
   width: 233px;
   height: 308px;
   position: relative;
-  top: 20px;
+  top: 0px;
   left: 0px;
   z-index: 0;
   overflow: hidden; }
@@ -43,7 +43,7 @@ body {
   width: 508px;
   height: 181px;
   position: relative;
-  top: -170px;
+  top: -188px;
   left: 464px;
   z-index: 0;
   overflow: hidden;
@@ -54,8 +54,8 @@ body {
     color: #1B1F4E; }
 
 .help_Menu {
-  position: relative;
-  top: -31px;
+  position: absolute;
+  top: 0px;
   left: 0px;
   z-index: 100000;
   width: 1024px;
@@ -223,7 +223,7 @@ body {
 
 .bottom {
   position: relative;
-  top: -572px;
+  top: 0px;
   left: 0px;
   z-index: 50; }
 

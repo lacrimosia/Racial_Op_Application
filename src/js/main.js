@@ -16,9 +16,9 @@ class App extends React.Component {
 
     render() {
         return <div>
-                <Menu />
-                <Help />
-                <Bottom list={this.list} />
+                    <Menu />
+                    <Help className="Help"/>
+                    r<Bottom list={this.list} />
         	   </div>
     }
 }

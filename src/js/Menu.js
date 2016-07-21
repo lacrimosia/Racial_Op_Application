@@ -9,7 +9,8 @@ hotkey.activate();
 class Menu extends React.Component {
     constructor(props) {
         super(props);
-        this.show = false;
+        this.show = true;
+        this.disabled = true;
         this.hotkeyHandler = this.keyboardShortcuts.bind(this);
     }
 
@@ -21,11 +22,18 @@ class Menu extends React.Component {
         if(e.keyCode == 82){
             // R Key
             this.reload();
-        }  
-        if(e.keyCode == 72 || e.keyCode == 191){
+        }else if(e.keyCode == 72 && this.disabled == false || e.keyCode == 191 && this.disabled == false ){
             // h or ? KEY
-            this.help();
-        } 
+            this.show = !this.show;
+            this.show ? this.openHelp() : this.closeHelp();
+            console.log("Help", this.show);
+            $('.help_Button').html("Close "+"<i class='fa fa-times'></i>");
+        } else if(e.keyCode == 83 && this.disabled == true){
+            // START key - S
+            this.start();
+            console.log("start", this.show);
+            $('.help_Button').html("START "+"<i class='fa fa-arrow-right'></i>");
+        }
      }
 
      componentDidMount() {
@@ -36,8 +44,18 @@ class Menu extends React.Component {
         hotkey.removeHandler(this.hotkeyHandler);
     }
 
-    help(){
-        alert("this is help");
+    openHelp(){
+        $('.help_Menu').show();
+    }
+
+    closeHelp(){
+        $('.help_Menu').hide();
+    }
+
+    start(){
+        this.show = false;
+        this.disabled = false;
+        $('.help_Menu').hide();
     }
 
     render() {
@@ -45,7 +63,7 @@ class Menu extends React.Component {
         <div className="header">
         	<div className="menu">
         		<button className="reload btn" title="Reload" onClick={this.reload.bind(this)}><i className="fa fa-refresh"></i> Reload</button>
-        		<button className="help btn" title="Help Menu" onClick={this.help.bind(this)}><i className="fa fa-question-circle"></i> Help</button>
+        		<button className="help btn" title="Help Menu" onClick={this.openHelp.bind(this)}><i className="fa fa-question-circle"></i> Help</button>
         	</div>
         </div>
         	</div>// end div

@@ -48,7 +48,7 @@ body{
 
 .pictures{
     @include wh(233px, 308px);
-    @include Pos(relative, 20px, 0px, 0);
+    @include Pos(relative, 0px, 0px, 0);
     overflow: hidden;
 
     img{
@@ -60,7 +60,7 @@ body{
 
 .textArea{
     @include wh(508px, 181px);
-    @include Pos(relative, -170px, 464px, 0); 
+    @include Pos(relative, -188px, 464px, 0); 
     overflow: hidden;
     background: none;
 
@@ -72,7 +72,7 @@ body{
 }
 
 .help_Menu {
-    @include Pos(relative, -31px, 0px, 100000);
+    @include Pos(absolute, 0px, 0px, 100000);
     @include wh(1024px, 576px);
     /* background: rgba(0, 0, 0, 0.6); */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1b1f4e+21,393f7d+38,aa0ce9+55,d4001d+71,ed5901+85,ef9719+98&0.46+0,0.5+100;wmst2 */
@@ -234,7 +234,7 @@ body{
 }
 
 .bottom{
-   @include Pos(relative, -572px, 0px, 50); 
+   @include Pos(relative, 0px, 0px, 50); 
 }
 
 .titles {

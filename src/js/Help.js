@@ -3,13 +3,16 @@
 import React from 'react';
 const data = require('../data/data.json');
 const $ = require('jquery');
-import hotkey from 'react-hotkey';
-hotkey.activate();
 
-class Help extends React.Component {
+class Help extends React.Component{
     constructor(props) {
         super(props);
     }
+
+    Start(){
+    	$('.help_Menu').hide();
+    }
+
     render() {
         return (<div className="help_Menu">
         <div className="keyboard_Div">
@@ -24,7 +27,7 @@ class Help extends React.Component {
                 <li>Help - <b className="keyButtons">H</b></li>
             </ul>
         </div>
-        <button className="help_Button">
+        <button className="help_Button" onClick={this.Start.bind(this)}>
             START <i className="fa fa-arrow-right"></i>
         </button>
     </div>

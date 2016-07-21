@@ -101,7 +101,8 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(_Menu2.default, null),
-	                _react2.default.createElement(_Help2.default, null),
+	                _react2.default.createElement(_Help2.default, { className: 'Help' }),
+	                'r',
 	                _react2.default.createElement(_Bottom2.default, { list: this.list })
 	            );
 	        }
@@ -20447,7 +20448,8 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).call(this, props));
 
-	        _this.show = false;
+	        _this.show = true;
+	        _this.disabled = true;
 	        _this.hotkeyHandler = _this.keyboardShortcuts.bind(_this);
 	        return _this;
 	    }
@@ -20463,10 +20465,17 @@
 	            if (e.keyCode == 82) {
 	                // R Key
 	                this.reload();
-	            }
-	            if (e.keyCode == 72 || e.keyCode == 191) {
+	            } else if (e.keyCode == 72 && this.disabled == false || e.keyCode == 191 && this.disabled == false) {
 	                // h or ? KEY
-	                this.help();
+	                this.show = !this.show;
+	                this.show ? this.openHelp() : this.closeHelp();
+	                console.log("Help", this.show);
+	                $('.help_Button').html("Close " + "<i class='fa fa-times'></i>");
+	            } else if (e.keyCode == 83 && this.disabled == true) {
+	                // START key - S
+	                this.start();
+	                console.log("start", this.show);
+	                $('.help_Button').html("START " + "<i class='fa fa-arrow-right'></i>");
 	            }
 	        }
 	    }, {
@@ -20480,9 +20489,21 @@
 	            _reactHotkey2.default.removeHandler(this.hotkeyHandler);
 	        }
 	    }, {
-	        key: 'help',
-	        value: function help() {
-	            alert("this is help");
+	        key: 'openHelp',
+	        value: function openHelp() {
+	            $('.help_Menu').show();
+	        }
+	    }, {
+	        key: 'closeHelp',
+	        value: function closeHelp() {
+	            $('.help_Menu').hide();
+	        }
+	    }, {
+	        key: 'start',
+	        value: function start() {
+	            this.show = false;
+	            this.disabled = false;
+	            $('.help_Menu').hide();
 	        }
 	    }, {
 	        key: 'render',
@@ -20504,7 +20525,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'button',
-	                            { className: 'help btn', title: 'Help Menu', onClick: this.help.bind(this) },
+	                            { className: 'help btn', title: 'Help Menu', onClick: this.openHelp.bind(this) },
 	                            _react2.default.createElement('i', { className: 'fa fa-question-circle' }),
 	                            ' Help'
 	                        )
@@ -31063,10 +31084,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactHotkey = __webpack_require__(169);
-
-	var _reactHotkey2 = _interopRequireDefault(_reactHotkey);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31078,8 +31095,6 @@
 	var data = __webpack_require__(171);
 	var $ = __webpack_require__(172);
 
-	_reactHotkey2.default.activate();
-
 	var Help = function (_React$Component) {
 	    _inherits(Help, _React$Component);
 
@@ -31090,6 +31105,11 @@
 	    }
 
 	    _createClass(Help, [{
+	        key: 'Start',
+	        value: function Start() {
+	            $('.help_Menu').hide();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -31170,7 +31190,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'button',
-	                    { className: 'help_Button' },
+	                    { className: 'help_Button', onClick: this.Start.bind(this) },
 	                    'START ',
 	                    _react2.default.createElement('i', { className: 'fa fa-arrow-right' })
 	                )
