@@ -27,7 +27,6 @@ class Menu extends React.Component {
             this.show = !this.show;
             this.show ? this.openHelp() : this.closeHelp();
             console.log("Help", this.show);
-            $('.help_Button').html("Close "+"<i class='fa fa-times'></i>");
         } else if(e.keyCode == 83 && this.disabled == true){
             // START key - S
             this.start();
@@ -46,6 +45,7 @@ class Menu extends React.Component {
 
     openHelp(){
         $('.help_Menu').show();
+        $('.help_Button').html("Close "+"<i class='fa fa-times'></i>");
     }
 
     closeHelp(){
@@ -56,6 +56,7 @@ class Menu extends React.Component {
         this.show = false;
         this.disabled = false;
         $('.help_Menu').hide();
+        $("#1").focus();
     }
 
     render() {

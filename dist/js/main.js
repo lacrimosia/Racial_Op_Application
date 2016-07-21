@@ -20470,7 +20470,6 @@
 	                this.show = !this.show;
 	                this.show ? this.openHelp() : this.closeHelp();
 	                console.log("Help", this.show);
-	                $('.help_Button').html("Close " + "<i class='fa fa-times'></i>");
 	            } else if (e.keyCode == 83 && this.disabled == true) {
 	                // START key - S
 	                this.start();
@@ -20492,6 +20491,7 @@
 	        key: 'openHelp',
 	        value: function openHelp() {
 	            $('.help_Menu').show();
+	            $('.help_Button').html("Close " + "<i class='fa fa-times'></i>");
 	        }
 	    }, {
 	        key: 'closeHelp',
@@ -20504,6 +20504,7 @@
 	            this.show = false;
 	            this.disabled = false;
 	            $('.help_Menu').hide();
+	            $("#1").focus();
 	        }
 	    }, {
 	        key: 'render',
