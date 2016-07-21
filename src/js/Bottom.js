@@ -3,7 +3,7 @@
 import React from 'react';
 const $ = require('jquery');
 import hotkey from 'react-hotkey';
-import NativeListener from 'react-native-listener';
+import NativeListener from 'react-native-listener'; // fixes e.preventDefault Problems
 hotkey.activate();
 
 // Bottom Navigation Component for changing the picture & text
