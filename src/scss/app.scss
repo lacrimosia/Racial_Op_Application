@@ -41,14 +41,14 @@ body{
     width: 5%;
     height: 100%;
     margin-right: 17px;
-    @include Pos(relative, -150px, 454px, 0); 
+    @include Pos(relative, -190px, 454px, 0); 
     cursor: pointer;
     outline: none;
 }
 
 .pictures{
     @include wh(233px, 308px);
-    @include Pos(relative, 0px, 0px, 0);
+    @include Pos(relative, 20px, 0px, 0);
     overflow: hidden;
 
     img{
@@ -60,7 +60,7 @@ body{
 
 .textArea{
     @include wh(508px, 181px);
-    @include Pos(relative, -188px, 464px, 0); 
+    @include Pos(relative, -138px, 464px, 0); 
     overflow: hidden;
     background: none;
 

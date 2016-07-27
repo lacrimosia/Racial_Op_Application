@@ -102,7 +102,6 @@
 	                null,
 	                _react2.default.createElement(_Menu2.default, null),
 	                _react2.default.createElement(_Help2.default, { className: 'Help' }),
-	                'r',
 	                _react2.default.createElement(_Bottom2.default, { list: this.list })
 	            );
 	        }

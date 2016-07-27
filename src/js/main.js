@@ -18,7 +18,7 @@ class App extends React.Component {
         return <div>
                     <Menu />
                     <Help className="Help"/>
-                    r<Bottom list={this.list} />
+                    <Bottom list={this.list} />
         	   </div>
     }
 }
