@@ -58,6 +58,7 @@ class Bottom extends React.Component {
        return (<div className="bottom">
         	<div className="placeArea"><div className="pictures"><img className="animated fadeIn" src={'images/'+this.list[0].picture}/></div></div>
         	<div className="textArea"><div className="textPortion animated fadeIn">{this.list[0].text}</div></div>
+          <div className="bottomNavigation">
        {
         this.props.list.map(function (b) { 
        		if(b.id===0){
@@ -74,6 +75,7 @@ class Bottom extends React.Component {
           );
         }.bind(this))
       }
+      </div>
         	</div>
     );
    }

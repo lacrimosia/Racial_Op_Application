@@ -30926,20 +30926,24 @@
 	                        this.list[0].text
 	                    )
 	                ),
-	                this.props.list.map(function (b) {
-	                    if (b.id === 0) {
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'bottomNavigation' },
+	                    this.props.list.map(function (b) {
+	                        if (b.id === 0) {
+	                            return _react2.default.createElement(
+	                                _reactNativeListener2.default,
+	                                { key: b.id, onClick: this.getInfo.bind(this, b.id) },
+	                                _react2.default.createElement('img', { src: 'images/' + (b.id + 1) + '-h.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons' })
+	                            );
+	                        }
 	                        return _react2.default.createElement(
 	                            _reactNativeListener2.default,
 	                            { key: b.id, onClick: this.getInfo.bind(this, b.id) },
-	                            _react2.default.createElement('img', { src: 'images/' + (b.id + 1) + '-h.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons' })
+	                            _react2.default.createElement('img', { src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons' })
 	                        );
-	                    }
-	                    return _react2.default.createElement(
-	                        _reactNativeListener2.default,
-	                        { key: b.id, onClick: this.getInfo.bind(this, b.id) },
-	                        _react2.default.createElement('img', { src: 'images/' + (b.id + 1) + '.png', id: b.id + 1, tabIndex: b.id + 1, className: 'buttons' })
-	                    );
-	                }.bind(this))
+	                    }.bind(this))
+	                )
 	            );
 	        }
 	    }]);
